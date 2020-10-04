@@ -1,0 +1,14 @@
+{
+  "name": "book-webscraper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.0",
+    "node-html-parser": "^1.2.20",
+    "selenium-webdriver": "^4.0.0-alpha.7",
+    "webdriver-manager": "^12.1.7"
+  }
+}

@@ -1,0 +1,874 @@
+{
+  "categories": [
+    {
+      "name": "Beer, Cider and Alcoholic RTDs",
+      "subCategories": [
+        {
+          "code": "CS13_200001",
+          "name": "Beer"
+        },
+        {
+          "code": "CS13_200010",
+          "name": "Bitters and Ales"
+        },
+        {
+          "code": "CS13_200020",
+          "name": "Cider"
+        },
+        {
+          "code": "CS13_200040",
+          "name": "Ready to Drink"
+        }
+      ]
+    },
+    {
+      "name": "Biscuits",
+      "subCategories": [
+        {
+          "code": "CS13_200050",
+          "name": "Biscuit Bars"
+        },
+        {
+          "code": "CS13_200060",
+          "name": "Catering Biscuits"
+        },
+        {
+          "code": "CS13_200070",
+          "name": "Retail Biscuits"
+        },
+        {
+          "code": "CS13_200090",
+          "name": "Wafers and Cones"
+        }
+      ]
+    },
+    {
+      "name": "Bread and Cakes",
+      "subCategories": [
+        {
+          "code": "CS13_200100",
+          "name": "Bread"
+        },
+        {
+          "code": "CS13_200110",
+          "name": "Cakes and Tarts"
+        },
+        {
+          "code": "CS13_200130",
+          "name": "Impulse Cakes"
+        },
+        {
+          "code": "CS13_200140",
+          "name": "Morning Goods"
+        }
+      ]
+    },
+    {
+      "name": "Confectionery",
+      "subCategories": [
+        {
+          "code": "CS13_200150",
+          "name": "Boxed Chocolates"
+        },
+        {
+          "code": "CS13_200160",
+          "name": "Catering Confectionery"
+        },
+        {
+          "code": "CS13_200170",
+          "name": "Chocolate"
+        },
+        {
+          "code": "CS13_200180",
+          "name": "Ice Cream Sundries"
+        },
+        {
+          "code": "CS13_200200",
+          "name": "Mints and Gum"
+        },
+        {
+          "code": "CS13_200210",
+          "name": "Pick n Mix"
+        },
+        {
+          "code": "CS13_200220",
+          "name": "Sweets"
+        }
+      ]
+    },
+    {
+      "name": "Crisps, Snacks and Dips",
+      "subCategories": [
+        {
+          "code": "CS13_200230",
+          "name": "Crisps and Snacks"
+        },
+        {
+          "code": "CS13_200240",
+          "name": "Dips"
+        },
+        {
+          "code": "CS13_200250",
+          "name": "Nuts"
+        }
+      ]
+    },
+    {
+      "name": "Food and Drink Disposables",
+      "subCategories": [
+        {
+          "code": "CS13_200260",
+          "name": "Bags and Bin Liners"
+        },
+        {
+          "code": "CS13_200270",
+          "name": "Disposable Food Gloves"
+        },
+        {
+          "code": "CS13_200280",
+          "name": "Disposable Tableware"
+        },
+        {
+          "code": "CS13_200290",
+          "name": "Food/Takeaway Containers"
+        },
+        {
+          "code": "CS13_200300",
+          "name": "Food Wraps and Bags"
+        },
+        {
+          "code": "CS13_200310",
+          "name": "Paperware Disposables"
+        },
+        {
+          "code": "CS13_200320",
+          "name": "Personalised Disposables"
+        }
+      ]
+    },
+    {
+      "name": "Fresh Food",
+      "subCategories": [
+        {
+          "code": "CS13_200330",
+          "name": "Butters, Spreads, Fats"
+        },
+        {
+          "code": "CS13_200340",
+          "name": "Cheese"
+        },
+        {
+          "code": "CS13_200350",
+          "name": "Cooked Meat and Sausages"
+        },
+        {
+          "code": "CS13_200360",
+          "name": "Cream"
+        },
+        {
+          "code": "CS13_200370",
+          "name": "Eggs"
+        },
+        {
+          "code": "CS13_200380",
+          "name": "Milk"
+        },
+        {
+          "code": "CS13_200385",
+          "name": "Milk Alternatives"
+        },
+        {
+          "code": "CS13_200390",
+          "name": "Pastry, Savouries, Bread and Pasta"
+        },
+        {
+          "code": "CS13_200400",
+          "name": "Ready Meals and Soups"
+        },
+        {
+          "code": "CS13_200410",
+          "name": "Salads, Sandwich Fillers, Dips"
+        },
+        {
+          "code": "CS13_200420",
+          "name": "Yogurt and Desserts"
+        },
+        {
+          "code": "CS13_200430",
+          "name": "Yogurt and Probiotic Drinks"
+        }
+      ]
+    },
+    {
+      "name": "Frozen Food",
+      "subCategories": [
+        {
+          "code": "CS13_200440",
+          "name": "Frozen Bread and Pastry"
+        },
+        {
+          "code": "CS13_200450",
+          "name": "Frozen Burgers, Grills, Sausages"
+        },
+        {
+          "code": "CS13_200460",
+          "name": "Frozen Desserts"
+        },
+        {
+          "code": "CS13_200470",
+          "name": "Frozen Fish"
+        },
+        {
+          "code": "CS13_200480",
+          "name": "Frozen Ready Meals"
+        },
+        {
+          "code": "CS13_200490",
+          "name": "Frozen Vegetables"
+        },
+        {
+          "code": "CS13_200500",
+          "name": "Ice Cream"
+        },
+        {
+          "code": "CS13_200510",
+          "name": "Other Frozen Meat"
+        },
+        {
+          "code": "CS13_200520",
+          "name": "Frozen Beef/Veal"
+        },
+        {
+          "code": "CS13_200530",
+          "name": "Frozen Lamb"
+        },
+        {
+          "code": "CS13_200540",
+          "name": "Frozen Pork"
+        },
+        {
+          "code": "CS13_200550",
+          "name": "Frozen Poultry"
+        }
+      ]
+    },
+    {
+      "name": "Greengrocery",
+      "subCategories": [
+        {
+          "code": "CS13_200560",
+          "name": "Fresh Fruit"
+        },
+        {
+          "code": "CS13_200570",
+          "name": "Fresh Salad"
+        },
+        {
+          "code": "CS13_200580",
+          "name": "Fresh Vegetables"
+        }
+      ]
+    },
+    {
+      "name": "Grocery - Catering",
+      "subCategories": [
+        {
+          "code": "CS13_200590",
+          "name": "Baking Ingredients Catering"
+        },
+        {
+          "code": "CS13_200595",
+          "name": "Breakfast Cereals Catering"
+        },
+        {
+          "code": "CS13_200600",
+          "name": "Cooking Ingredients Catering"
+        },
+        {
+          "code": "CS13_200610",
+          "name": "Cooking Sauce and Paste Catering"
+        },
+        {
+          "code": "CS13_200620",
+          "name": "Desserts Catering"
+        },
+        {
+          "code": "CS13_200630",
+          "name": "Dry Veg, Cereals and Rice Catering"
+        },
+        {
+          "code": "CS13_200640",
+          "name": "Gravy and Stock Catering"
+        },
+        {
+          "code": "CS13_200650",
+          "name": "Instant Snacks and Meals Catering"
+        },
+        {
+          "code": "CS13_200660",
+          "name": "Jam, Honey and Spread Catering"
+        },
+        {
+          "code": "CS13_200670",
+          "name": "Ketchup and Sauce Catering"
+        },
+        {
+          "code": "CS13_200675",
+          "name": "Pasta and Noodles Catering"
+        },
+        {
+          "code": "CS13_200680",
+          "name": "Pickle, Chutney and Olives Catering"
+        },
+        {
+          "code": "CS13_200700",
+          "name": "Salt, Herbs, Spices Catering"
+        },
+        {
+          "code": "CS13_200710",
+          "name": "Soup Catering"
+        },
+        {
+          "code": "CS13_200720",
+          "name": "Stuffing and Breadcrumbs Catering"
+        },
+        {
+          "code": "CS13_200730",
+          "name": "Sugar and Syrup Catering"
+        },
+        {
+          "code": "CS13_200740",
+          "name": "Tinned and Bottled Fish Catering"
+        },
+        {
+          "code": "CS13_200750",
+          "name": "Tinned Fruit Catering"
+        },
+        {
+          "code": "CS13_200760",
+          "name": "Tinned Meat Catering"
+        },
+        {
+          "code": "CS13_200770",
+          "name": "Tinned Milk and Cream Catering"
+        },
+        {
+          "code": "CS13_200780",
+          "name": "Tinned Vegetables Catering"
+        },
+        {
+          "code": "CS13_200785",
+          "name": "Ritter Grocery Products"
+        }
+      ]
+    },
+    {
+      "name": "Grocery - Retail",
+      "subCategories": [
+        {
+          "code": "CS13_200790",
+          "name": "Baking Ingredients Retail"
+        },
+        {
+          "code": "CS13_200800",
+          "name": "Breakfast Cereals Retail"
+        },
+        {
+          "code": "CS13_200810",
+          "name": "Cooking Ingredients Retail"
+        },
+        {
+          "code": "CS13_200820",
+          "name": "Cooking Sauce and Paste Retail"
+        },
+        {
+          "code": "CS13_200830",
+          "name": "Desserts Retail"
+        },
+        {
+          "code": "CS13_200840",
+          "name": "Dry Veg, Cereals and Rice Retail"
+        },
+        {
+          "code": "CS13_200860",
+          "name": "Gravy and Stock Retail"
+        },
+        {
+          "code": "CS13_200870",
+          "name": "Instant Snacks and Meals Retail"
+        },
+        {
+          "code": "CS13_200880",
+          "name": "Jam, Honey, Spread Retail"
+        },
+        {
+          "code": "CS13_200890",
+          "name": "Ketchup and Sauce Retail"
+        },
+        {
+          "code": "CS13_200900",
+          "name": "Milk, Cream, Shakes Retail"
+        },
+        {
+          "code": "CS13_200905",
+          "name": "Pasta and Noodles Retail"
+        },
+        {
+          "code": "CS13_200910",
+          "name": "Pickle, Chutney and Olives Retail"
+        },
+        {
+          "code": "CS13_200920",
+          "name": "Salt, Herbs, Spices Retail"
+        },
+        {
+          "code": "CS13_200930",
+          "name": "Soup Retail"
+        },
+        {
+          "code": "CS13_200940",
+          "name": "Stuffing and Breadcrumbs Retail"
+        },
+        {
+          "code": "CS13_200950",
+          "name": "Sugar and Syrup Retail"
+        },
+        {
+          "code": "CS13_200960",
+          "name": "Tinned and Bottled Fish Retail"
+        },
+        {
+          "code": "CS13_200970",
+          "name": "Tinned Fruit Retail"
+        },
+        {
+          "code": "CS13_200980",
+          "name": "Tinned Meat Retail"
+        },
+        {
+          "code": "CS13_200990",
+          "name": "Tinned Vegetables Retail"
+        },
+        {
+          "code": "CS13_200995",
+          "name": "World Foods Retail"
+        }
+      ]
+    },
+    {
+      "name": "Health, Beauty and Baby",
+      "subCategories": [
+        {
+          "code": "CS13_201000",
+          "name": "Baby Food and Drinks"
+        },
+        {
+          "code": "CS13_201010",
+          "name": "Bath, Shower, Soap"
+        },
+        {
+          "code": "CS13_201020",
+          "name": "Beauty and Skincare"
+        },
+        {
+          "code": "CS13_201030",
+          "name": "Contraception"
+        },
+        {
+          "code": "CS13_201040",
+          "name": "Dental Care"
+        },
+        {
+          "code": "CS13_201050",
+          "name": "Feminine Hygiene"
+        },
+        {
+          "code": "CS13_201060",
+          "name": "Haircare"
+        },
+        {
+          "code": "CS13_201070",
+          "name": "Medicines and Healthcare"
+        },
+        {
+          "code": "CS13_201080",
+          "name": "Men's Toiletries"
+        },
+        {
+          "code": "CS13_201090",
+          "name": "Nappies and Toiletries"
+        },
+        {
+          "code": "CS13_201110",
+          "name": "Women's Toiletries"
+        }
+      ]
+    },
+    {
+      "name": "Hot Drinks",
+      "subCategories": [
+        {
+          "code": "CS13_201120",
+          "name": "Coffee Catering"
+        },
+        {
+          "code": "CS13_201130",
+          "name": "Coffee Retail"
+        },
+        {
+          "code": "CS13_201140",
+          "name": "Coffee Whiteners Catering"
+        },
+        {
+          "code": "CS13_201150",
+          "name": "Other Hot Drinks Catering"
+        },
+        {
+          "code": "CS13_201160",
+          "name": "Other Hot Drinks Retail"
+        },
+        {
+          "code": "CS13_201170",
+          "name": "Tea Catering"
+        },
+        {
+          "code": "CS13_201180",
+          "name": "Tea Retail"
+        }
+      ]
+    },
+    {
+      "name": "Household, Cleaning and Paper",
+      "subCategories": [
+        {
+          "code": "CS13_201190",
+          "name": "Air Freshener"
+        },
+        {
+          "code": "CS13_201200",
+          "name": "Cleaning"
+        },
+        {
+          "code": "CS13_201210",
+          "name": "Cleaning Tools and Gloves"
+        },
+        {
+          "code": "CS13_201220",
+          "name": "Dishwasher and Washing Up"
+        },
+        {
+          "code": "CS13_201230",
+          "name": "Hygiene Products"
+        },
+        {
+          "code": "CS13_201240",
+          "name": "Laundry"
+        },
+        {
+          "code": "CS13_201250",
+          "name": "Paper Products"
+        },
+        {
+          "code": "CS13_201260",
+          "name": "Pest Control"
+        },
+        {
+          "code": "CS13_201270",
+          "name": "Air Fresheners Professional"
+        },
+        {
+          "code": "CS13_201280",
+          "name": "Cleaning Professional"
+        },
+        {
+          "code": "CS13_201290",
+          "name": "Dishwasher and Wash Up Professional"
+        },
+        {
+          "code": "CS13_201300",
+          "name": "Laundry Professional"
+        }
+      ]
+    },
+    {
+      "name": "Meat, Fish and Poultry",
+      "subCategories": [
+        {
+          "code": "CS13_201310",
+          "name": "Bacon and Gammon"
+        },
+        {
+          "code": "CS13_201320",
+          "name": "Fresh Beef"
+        },
+        {
+          "code": "CS13_201330",
+          "name": "Fresh Fish"
+        },
+        {
+          "code": "CS13_201340",
+          "name": "Fresh Lamb"
+        },
+        {
+          "code": "CS13_201350",
+          "name": "Fresh Pork"
+        },
+        {
+          "code": "CS13_201360",
+          "name": "Fresh Poultry"
+        },
+        {
+          "code": "CS13_201370",
+          "name": "Fresh Sausages"
+        },
+        {
+          "code": "CS13_201380",
+          "name": "Other Fresh Meat and Game"
+        }
+      ]
+    },
+    {
+      "name": "Non-Food",
+      "subCategories": [
+        {
+          "code": "CS13_201390",
+          "name": "Appliances"
+        },
+        {
+          "code": "CS13_201410",
+          "name": "Bar, Table, Beverage Service"
+        },
+        {
+          "code": "CS13_201415",
+          "name": "Bedding and Textiles"
+        },
+        {
+          "code": "CS13_201420",
+          "name": "Business Equipment"
+        },
+        {
+          "code": "CS13_201430",
+          "name": "Candles and Candle Holders"
+        },
+        {
+          "code": "CS13_201440",
+          "name": "Car Care, DIY, Maintenance"
+        },
+        {
+          "code": "CS13_201490",
+          "name": "Cookware and Kitchen Equipment"
+        },
+        {
+          "code": "CS13_201500",
+          "name": "Crockery and Tableware"
+        },
+        {
+          "code": "CS13_201510",
+          "name": "Electrical Applicances and Accessories"
+        },
+        {
+          "code": "CS13_201520",
+          "name": "Food Serving and Display"
+        },
+        {
+          "code": "CS13_201530",
+          "name": "Furniture and Furnishings"
+        },
+        {
+          "code": "CS13_201540",
+          "name": "Glassware"
+        },
+        {
+          "code": "CS13_201550",
+          "name": "Guest Toiletries"
+        },
+        {
+          "code": "CS13_201580",
+          "name": "Office and Stationery"
+        },
+        {
+          "code": "CS13_201590",
+          "name": "Retailer Resaleable Products"
+        },
+        {
+          "code": "CS13_201600",
+          "name": "Safety and Workwear"
+        },
+        {
+          "code": "CS13_201620",
+          "name": "Workplace Signs and Sign Boards"
+        }
+      ]
+    },
+    {
+      "name": "Pet Food",
+      "subCategories": [
+        {
+          "code": "CS13_201630",
+          "name": "Cats"
+        },
+        {
+          "code": "CS13_201640",
+          "name": "Dogs"
+        },
+        {
+          "code": "CS13_201650",
+          "name": "Other Animals"
+        }
+      ]
+    },
+    {
+      "name": "Seasonal",
+      "subCategories": [
+        {
+          "code": "CS13_201690",
+          "name": "Festive Items"
+        },
+        {
+          "code": "CS13_201700",
+          "name": "Gardening"
+        }
+      ]
+    },
+    {
+      "name": "Soft Drinks",
+      "subCategories": [
+        {
+          "code": "CS13_201750",
+          "name": "Adult Drinks"
+        },
+        {
+          "code": "CS13_201760",
+          "name": "Cup Drinks"
+        },
+        {
+          "code": "CS13_201770",
+          "name": "Dilutables"
+        },
+        {
+          "code": "CS13_201780",
+          "name": "Fizzy Drinks"
+        },
+        {
+          "code": "CS13_201790",
+          "name": "Freeze Pops"
+        },
+        {
+          "code": "CS13_201800",
+          "name": "Fruit Juice and Smoothies"
+        },
+        {
+          "code": "CS13_201810",
+          "name": "Juice Drinks"
+        },
+        {
+          "code": "CS13_201820",
+          "name": "On Premise"
+        },
+        {
+          "code": "CS13_201830",
+          "name": "Retail Mixers"
+        },
+        {
+          "code": "CS13_201840",
+          "name": "Sports, Energy and Health"
+        },
+        {
+          "code": "CS13_201850",
+          "name": "Water"
+        }
+      ]
+    },
+    {
+      "name": "Spirits and Liqueurs",
+      "subCategories": [
+        {
+          "code": "CS13_201860",
+          "name": "Brandy and Cognac"
+        },
+        {
+          "code": "CS13_201870",
+          "name": "Gin"
+        },
+        {
+          "code": "CS13_201880",
+          "name": "Halves, Quarters, Miniatures"
+        },
+        {
+          "code": "CS13_201900",
+          "name": "Rum"
+        },
+        {
+          "code": "CS13_201910",
+          "name": "Shots, Liqueurs and Cocktails"
+        },
+        {
+          "code": "CS13_201920",
+          "name": "Vodka"
+        },
+        {
+          "code": "CS13_201930",
+          "name": "Whisky"
+        }
+      ]
+    },
+    {
+      "name": "Tobacco and Cigarettes",
+      "subCategories": [
+        {
+          "code": "CS13_201940",
+          "name": "Cigarettes"
+        },
+        {
+          "code": "CS13_201950",
+          "name": "Cigars and Other Tobacco"
+        },
+        {
+          "code": "CS13_201955",
+          "name": "E-Cigarettes"
+        },
+        {
+          "code": "CS13_201960",
+          "name": "Smoking Accessories"
+        }
+      ]
+    },
+    {
+      "name": "Wine",
+      "subCategories": [
+        {
+          "code": "CS13_201980",
+          "name": "Champagne and Sparkling Wine"
+        },
+        {
+          "code": "CS13_201990",
+          "name": "Fortified Wines"
+        },
+        {
+          "code": "CS13_202010",
+          "name": "Low Alcohol Wine"
+        },
+        {
+          "code": "CS13_202020",
+          "name": "Red Wine"
+        },
+        {
+          "code": "CS13_202030",
+          "name": "Rosé Wine"
+        },
+        {
+          "code": "CS13_202040",
+          "name": "Single Serve Wine"
+        },
+        {
+          "code": "CS13_202050",
+          "name": "White Wine"
+        },
+        {
+          "code": "CS13_202060",
+          "name": "Wine Boxes"
+        }
+      ]
+    }
+  ]
+}
