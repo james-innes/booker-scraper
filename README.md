@@ -2,10 +2,10 @@
 
 ![Screenshot](scrapping-in-action.png)
 
-- Scrap all sub categories of categories of products on booker website
-- scarp each indivual product page and get detailed information
-- Store scraped data in database - Excel not cutting it
-- Make Node or Python API to backwards engineer Booker scanner.
+- [ ] Scrap all sub categories of categories of products on booker website
+- [ ] scarp each individual product page and get detailed information
+- [ ] Store scraped data in database - Excel not cutting it
+- [ ] Make Node or Python API to backwards engineer Booker scanner.
 
 ## Selenium webdriver IO
 
