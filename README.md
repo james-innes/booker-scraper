@@ -1,4 +1,4 @@
-# Booker Web Scrapper
+# Booker Web Scrapper :spider_web:
 
 ![Screenshot](scrapping-in-action.png)
 
