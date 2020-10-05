@@ -60,10 +60,23 @@ JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't fin
 console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
 1601855870929	Marionette	INFO	Listening on port 58927
 1601855871005	Marionette	WARN	TLS certificate errors will be ignored for this session
-1601855989601	geckodriver	INFO	Listening on 127.0.0.1:59000
-1601855992630	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\James\\AppData\\Local\\Temp\\rust_mozprofileOBIAz8"
+1601856456614	Marionette	INFO	Stopped listening on port 58927
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+Temp\\rust_mozprofileOBIAz8"
 Can't find symbol 'eglSwapBuffersWithDamageEXT'.
 JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
 console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
 1601855994788	Marionette	INFO	Listening on port 59008
 1601855995247	Marionette	WARN	TLS certificate errors will be ignored for this session
+1601856440017	Marionette	INFO	Stopped listening on port 59008
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
