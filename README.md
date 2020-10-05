@@ -24,10 +24,10 @@ Can't get to work for even login has timeout issue and cannot access content.
 
 Status: **Working perfectly**
 
-Both working:
+<mark>Working files</mark>
 
-- product-list-scraper.py
-- product-page-scraper.py
+- ./selenium-py/product-list-scraper.py
+- ./selenium-py/product-page-scraper.py
 
 Python does not natively have a clue what Javascript objects are (no surprise) so trying to construct and output json is very ugly as have to use dictionaries all the time.  
 Much easier to construct flat row and write to CSV file --- and then convert CSV to JSON file.
@@ -80,7 +80,9 @@ Can view some hidden directories but unable to access content to scrap.
 
 ### Tradeoff - Scrappy VS Selenium
 
-Selenium bit slower and heavy process to run but guaranteed to be able to simulate anything a user would without any technical challenges.
+> Selenium bit slower and heavy process to run but guaranteed to be able to simulate anything a user > would without any technical challenges.
+
+---
 
 ## Booker Scanner
 
