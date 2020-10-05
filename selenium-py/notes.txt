@@ -1,0 +1,15 @@
+
+
+Both working:
+product-list-scraper.py
+product-page-scraper.py
+
+Todo
+- use .env for credentials
+- use common login module
+- maybe merge scripts maybe not
+- nutrition information ?
+- remove rubbish from data if any more
+- remove wholesale qty from product name (regex) might be finished
+- !!!!! Product list does not support pagination
+- Why won't python work with relative paths for files
