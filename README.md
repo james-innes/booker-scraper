@@ -1,5 +1,7 @@
 # Booker Web Scrapper
 
+![Screenshot](scrapping-in-action.png)
+
 - Scrap all sub categories of categories of products on booker website
 - scarp each indivual product page and get detailed information
 - Store scraped data in database - Excel not cutting it
