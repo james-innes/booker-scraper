@@ -27,12 +27,12 @@ driver.find_element_by_id(
     "LoginControl_EnterEmailPasswordSubmit").click()
 
 
-with open('products-list.csv', 'w', newline='') as f:
+with open('data/products-list.csv', 'w', newline='') as f:
     writer = csv.DictWriter(
         f, fieldnames=['catCode', 'catName', 'subCatCode', 'subCatName', 'url'])
     writer.writeheader()
 
-    with open('sitemap.json') as json_file:
+    with open('data/sitemap.json') as json_file:
         sitemap = json.load(json_file)
 
         for cat in sitemap['categories']:

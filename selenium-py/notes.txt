@@ -12,4 +12,20 @@ Todo
 - remove rubbish from data if any more
 - remove wholesale qty from product name (regex) might be finished
 - !!!!! Product list does not support pagination
-- Why won't python work with relative paths for files
+
+
+how to set up .env
+
+BOOKER_EMAIL
+BOOKER_PASSWORD
+
+
+pip install python-dotenv
+
+import os
+from dotenv import load_dotenv
+project_folder = os.path.expanduser('~/my-project-dir')  # adjust as appropriate
+load_dotenv(os.path.join(project_folder, '.env'))
+
+import os
+SECRET_KEY = os.getenv("SECRET_KEY")
