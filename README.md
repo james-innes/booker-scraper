@@ -24,7 +24,7 @@ Can't get to work for even login has timeout issue and cannot access content.
 
 Status: **Working perfectly**
 
-<mark>Working files</mark>
+**Working files** :heavy_check_mark:
 
 - ./selenium-py/product-list-scraper.py
 - ./selenium-py/product-page-scraper.py
