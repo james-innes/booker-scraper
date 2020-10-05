@@ -26,9 +26,9 @@ driver.find_element_by_id(
 driver.find_element_by_id(
     "LoginControl_EnterEmailPasswordSubmit").click()
 
-with open('products-list.csv', "r", newline='') as f:
+with open('data/products-list.csv', "r", newline='') as f:
     reader = csv.DictReader(f)
-    with open('products-detail.csv', 'w', newline='') as f:
+    with open('data/products-detail.csv', 'w', newline='') as f:
         writer = csv.DictWriter(
             f, fieldnames=['retailSize', 'wsQuantity', 'shelfCode', 'imgUrlSmall', 'imgUrlBig', 'catCode', 'catName', 'subCatCode', 'subCatName', 'name', 'VAT', 'Size', 'WSP inc VAT', 'WSP', 'Code', 'Alcohol by Volume', 'RRP', 'POR', 'Alcohol Units', 'Unit Description', 'url'])
         writer.writeheader()
