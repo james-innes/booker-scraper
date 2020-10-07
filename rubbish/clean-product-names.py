@@ -16,6 +16,8 @@ samples = [
     "Smirnoff Ice Vodka Mixed Drink 70cl Bottle PMP Â£3.29"
 ]
 
+# Get rid of wholesale qty and other rubbish
+
 substitutions = [
     r'.PMP\s?£?(\d+.?\d+)',
     r'(\d+)\s?x\s?',
