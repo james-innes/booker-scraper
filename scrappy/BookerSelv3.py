@@ -51,6 +51,7 @@ class BookerProductList(Spider):
             'LoginControl_EnterEmailPasswordSubmit').click()
 
         # Switch from Selenium to Scrapy
+        self.cookie = self.driver.get_cookie("ASP.NET_SessionId")
         self.parse(response=self.driver.page_source)
         self.driver.quit()
 
@@ -61,7 +62,7 @@ class BookerProductList(Spider):
             'Accept-Encoding': 'gzip, deflate, br',
             'Accept-Language': 'en-US,en;q=0.9',
             'Connection': 'keep-alive',
-            'Cookie': 'ASP.NET_SessionId=hoxyuigmv3ufirmjfj0l3fqd',
+            'Cookie': f"ASP.NET_SessionId={self.cookie['value']}",
             'Host': 'www.booker.co.uk',
             'Referer': 'https://www.booker.co.uk/catalog/mybooker.aspx',
             'Sec-Fetch-Dest': 'document',
@@ -77,7 +78,6 @@ class BookerProductList(Spider):
         yield request
 
     def getProductList(self, response):
-        print("## Get link to each product page")
         yield{"link": response.css("tr .info_r1 a::attr(href)").extract()}
 
 
