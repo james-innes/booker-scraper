@@ -4,14 +4,19 @@
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 import os
+import csv
+import json
 import time
+import re
+
 from urllib.parse import urljoin
 from dotenv import load_dotenv
+
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
 from scrapy.crawler import CrawlerProcess
-from scrapy import Spider, Request
+from scrapy.spiders import CrawlSpider
 from scrapy.http import FormRequest
 from scrapy.settings import Settings
 from scrapy.shell import inspect_response
@@ -20,8 +25,7 @@ from scrapy.http import HtmlResponse
 
 load_dotenv()
 
-
-class BookerProductList(Spider):
+class BookerProductList(CrawlSpider):
     header = {"User-Agent": "Mozilla/5.0 Gecko/20100101 Firefox/33.0"}
     name = "booker_mb"
     allowed_domains = ["booker.co.uk"]
@@ -30,7 +34,6 @@ class BookerProductList(Spider):
 
     def __init__(self):
         # Use  Selenium to log in and get a response for Scrapy
-
         options = Options()
         options.headless = True
         self.driver = webdriver.Firefox(options=options)
@@ -50,14 +53,12 @@ class BookerProductList(Spider):
         self.driver.find_element_by_id(
             'LoginControl_EnterEmailPasswordSubmit').click()
 
-        # Switch from Selenium to Scrapy
+        # Gets the Selenium response and passes it onto Scrapy
         self.cookie = self.driver.get_cookie("ASP.NET_SessionId")
         self.parse(response=self.driver.page_source)
         self.driver.quit()
 
     def parse(self, response):
-        next_url = 'https://www.booker.co.uk/catalog/products.aspx?categoryName=Default%20Catalog&keywords=beer&view=UnGrouped'
-
         headers = {
             'Accept-Encoding': 'gzip, deflate, br',
             'Accept-Language': 'en-US,en;q=0.9',
@@ -73,15 +74,22 @@ class BookerProductList(Spider):
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
         }
 
-        request = FormRequest(
-            url=next_url, headers=headers, callback=self.getProductList)
-        yield request
+        with open('data/sitemap.json') as sitemap:
+            for cat in json.load(sitemap)['categories']:
+                for subCat in cat['subCategories']:
+                    yield FormRequest(
+                        url=f"https://www.booker.co.uk/catalog/products.aspx?categoryName={subCat['code']}", headers=headers, callback=self.getProductList, meta={'cat': cat, 'subCat': subCat})
 
     def getProductList(self, response):
-        yield{"link": response.css("tr .info_r1 a::attr(href)").extract()}
+        productLinks = response.css("tr .info_r1 a::attr(href)").extract()
+        for productLink in productLinks:
+            print({
+                'catName': response.meta['cat']['name'],
+                'subCatCode': response.meta['subCat']['code'],
+                'url': productLink
+            })
 
 
-# Main Driver
 if __name__ == "__main__":
     process = CrawlerProcess()
     process.crawl(BookerProductList)
