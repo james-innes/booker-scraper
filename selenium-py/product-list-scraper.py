@@ -1,31 +1,28 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from webdriver_manager.firefox import GeckoDriverManager
-
+import os
 import csv
 import json
 import time
 import re
 
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from webdriver_manager.firefox import GeckoDriverManager
 
 driver = webdriver.Firefox(
     executable_path=GeckoDriverManager().install())
 
 
-driver.get(
-    "https://www.booker.co.uk/account/loginregister/UserLogin.aspx")
+driver.get("https://www.booker.co.uk/account/loginregister/UserLogin.aspx")
 driver.find_element_by_id("LoginControl_CustomerNumberSingle").send_keys(
-    "***REMOVED***")
-driver.find_element_by_id(
-    "LoginControl_EnterCustomerNumberSubmit").click()
+    os.getenv("BOOKER_ACCOUNT"))
+driver.find_element_by_id("LoginControl_EnterCustomerNumberSubmit").click()
 time.sleep(0.5)
-driver.find_element_by_id(
-    "LoginControl_EmailSingle").send_keys("***REMOVED***")
-driver.find_element_by_id(
-    "LoginControl_PasswordSingle").send_keys("drvLNXzExJ6J96zn")
-driver.find_element_by_id(
-    "LoginControl_EnterEmailPasswordSubmit").click()
 
+driver.find_element_by_id("LoginControl_EmailSingle").send_keys(
+    os.getenv("BOOKER_EMAIL"))
+driver.find_element_by_id("LoginControl_PasswordSingle").send_keys(
+    os.getenv("BOOKER_PASSWORD"))
+driver.find_element_by_id("LoginControl_EnterEmailPasswordSubmit").click()
 
 with open('data/products-list.csv', 'w', newline='') as f:
     writer = csv.DictWriter(

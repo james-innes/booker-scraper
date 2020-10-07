@@ -9,14 +9,14 @@ const { Builder, firefox, webdriver } = require("selenium-webdriver");
 
   driver
     .findElement(webdriver.By.id("LoginControl_CustomerNumberSingle"))
-    .sendKeys("***REMOVED***", webdriver.Key.RETURN);
+    .sendKeys("BOOKER_ACCOUNT", webdriver.Key.RETURN);
 
   driver
     .findElement(webdriver.By.id("LoginControl_EmailSingle"))
-    .sendKeys("***REMOVED***");
+    .sendKeys("BOOKER_EMAIL");
   driver
     .findElement(webdriver.By.id("LoginControl_PasswordSingle"))
-    .sendKeys("drvLNXzExJ6J96zn", webdriver.key.RETURN);
+    .sendKeys("BOOKER_PASSWORD", webdriver.key.RETURN);
 
   driver.quit();
 })();

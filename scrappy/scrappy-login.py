@@ -19,7 +19,7 @@ class LoginSpider(Spider):
             response,
             # formid='LoginControl_CustomerNumberSingle',
             formdata={
-                'LoginControl$CustomerNumberSingle': '***REMOVED***'
+                'LoginControl$CustomerNumberSingle': 'BOOKER_ACCOUNT'
             },
             callback=self.after_customer_number
         )
@@ -29,8 +29,8 @@ class LoginSpider(Spider):
             response,
             formdata={
                 '__VIEWSTATEGENERATOR': 'E026D3EE',
-                'LoginControl$EmailSingle': '***REMOVED***',
-                'LoginControl$PasswordSingle': 'drvLNXzExJ6J96zn',
+                'LoginControl$EmailSingle': 'BOOKER_EMAIL',
+                'LoginControl$PasswordSingle': 'BOOKER_PASSWORD',
                 'LoginControl$EnterEmailPasswordSubmit.x': '55',  # may be dynamically created
                 'LoginControl$EnterEmailPasswordSubmit.y': '74'  # may be dynamically created
             },
@@ -51,9 +51,11 @@ class LoginSpider(Spider):
 
         print('\n')
         print("HERE:")
-        print(response.css('span#ButcheryDepartment_ctl01_ButcherName::text')) # Home Page
-        print(response.css('#LoginControl_TitleCustomerNumber::text')) # UserLogin Page
-        print(response.css('.pip h3 ::text')) # Product page
+        # Home Page
+        print(response.css('span#ButcheryDepartment_ctl01_ButcherName::text'))
+        # UserLogin Page
+        print(response.css('#LoginControl_TitleCustomerNumber::text'))
+        print(response.css('.pip h3 ::text'))  # Product page
         print('\n')
 
         ##### Can't navigate away from UserLogin page ######
@@ -64,9 +66,11 @@ class LoginSpider(Spider):
     def parse_page(self, response):
         print('\n')
         print("HERE:")
-        print(response.css('span#ButcheryDepartment_ctl01_ButcherName::text')) # Home Page
-        print(response.css('#LoginControl_TitleCustomerNumber::text')) # UserLogin Page
-        print(response.css('.pip h3 ::text')) # Product page
+        # Home Page
+        print(response.css('span#ButcheryDepartment_ctl01_ButcherName::text'))
+        # UserLogin Page
+        print(response.css('#LoginControl_TitleCustomerNumber::text'))
+        print(response.css('.pip h3 ::text'))  # Product page
         print('\n')
 
 

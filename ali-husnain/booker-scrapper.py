@@ -137,6 +137,6 @@ class login_booker:
 
 if __name__ == "__main__":
 
-    loginInfo = ["***REMOVED***", "***REMOVED***", "drvLNXzExJ6J96zn"]
+    loginInfo = ["BOOKER_ACCOUNT", "BOOKER_EMAIL", "BOOKER_PASSWORD"]
     url = "https://www.booker.co.uk/catalog/productinformation.aspx?code=606053&settype=23&categoryName=307954&CSUrl=https%3a%2f%2fwww.booker.co.uk%2fcatalog%2fproducts.aspx%3fcategoryName%3dCS13_200001%26view%3dUnGrouped%26sortField%3dCore%26SortDirection%3dAscending%26multi%3dFalse%26pageIndex%3d3"
     obj = login_booker(loginInfo, url)

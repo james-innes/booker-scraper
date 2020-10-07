@@ -10,14 +10,14 @@ headers = {
 
 # first booker login form
 login_data = {
-    'OutsideHomePageControl$CustomerNumber': '***REMOVED***'
+    'OutsideHomePageControl$CustomerNumber': 'BOOKER_ACCOUNT'
 }
 
 # second booker login form - will work when we have found all hidden values
 
 user_data = {
     '__VIEWSTATEGENERATOR': 'E026D3EE',  # check - may be dynamically created
-    'LoginControl$EmailSingle': '***REMOVED***',
+    'LoginControl$EmailSingle': 'BOOKER_EMAIL',
     'LoginControl$PasswordSingle': 'wCeFBxSnxCpkF93m',
     'LoginControl$EnterEmailPasswordSubmit.x': '55',  # may be dynamically created
     'LoginControl$EnterEmailPasswordSubmit.y': '74'  # may be dynamically created

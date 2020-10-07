@@ -25,17 +25,17 @@ const {
     await driver.get(
       "https://www.booker.co.uk/account/loginregister/UserLogin.aspx"
     );
-    // driver.wait(driver.findElement(By.id('LoginControl_CustomerNumberSingle')).sendKeys("***REMOVED***", Key.RETURN), 1000)
+    // driver.wait(driver.findElement(By.id('LoginControl_CustomerNumberSingle')).sendKeys("BOOKER_ACCOUNT", Key.RETURN), 1000)
     driver
       .findElement(By.id("LoginControl_CustomerNumberSingle"))
-      .sendKeys("***REMOVED***", Key.RETURN);
+      .sendKeys("BOOKER_ACCOUNT", Key.RETURN);
     // driver.sleep(100000)
 
-    // driver.findElement(By.id("LoginControl_EmailSingle")).sendKeys("drvLNXzExJ6J96zn")
+    // driver.findElement(By.id("LoginControl_EmailSingle")).sendKeys("BOOKER_PASSWORD")
 
-    // driver.wait(driver.findElement(By.id("LoginControl_EmailSingle")).sendKeys("***REMOVED***"), 5000)
-    // await driver.findElement(By.id("LoginControl_EmailSingle")).sendKeys("drvLNXzExJ6J96zn")
-    // await driver.findElement(By.id("LoginControl_PasswordSingle")).sendKeys("drvLNXzExJ6J96zn")
+    // driver.wait(driver.findElement(By.id("LoginControl_EmailSingle")).sendKeys("BOOKER_EMAIL"), 5000)
+    // await driver.findElement(By.id("LoginControl_EmailSingle")).sendKeys("BOOKER_PASSWORD")
+    // await driver.findElement(By.id("LoginControl_PasswordSingle")).sendKeys("BOOKER_PASSWORD")
     // await driver.findElement(By.id("LoginControl_EnterEmailPasswordSubmit")).click()
   } finally {
     await driver.quit();
