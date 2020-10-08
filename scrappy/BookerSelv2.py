@@ -5,18 +5,15 @@
 # ! Firefox has been used for webdriver #
 
 import os
-from selenium import webdriver
 import time
 
-from urllib.parse import urljoin
+from selenium import webdriver
+
 from scrapy.crawler import CrawlerProcess
 from scrapy import Spider, Request
 from scrapy.http import FormRequest
 from scrapy.settings import Settings
-from scrapy.shell import inspect_response
 from scrapy import Selector
-from scrapy.http import HtmlResponse
-
 from scrapy.loader import ItemLoader
 from items import BookerMbItem
 
@@ -53,7 +50,7 @@ class BookerProductList(Spider):
         self.parse(response=self.driver.page_source)
         self.driver.quit()
         
-        # For here onwards Selenium hands back to Scrapy
+        # From here onwards Selenium hands back to Scrapy
         
     def parse(self, response):
 
@@ -92,7 +89,7 @@ class BookerProductList(Spider):
         
         print("\n## Now we will go and get all items, eg: BEER ##")
         
-        # Trying one category here, will eventually read all 24 from JSON/sitemap
+        # Trying one category here, will eventually read all 24 from JSON/sitemap - I have done code to flatten the JSON
         
         BEER = 'https://www.booker.co.uk/catalog/products.aspx?categoryName=Default%20Catalog&keywords=beer&view=UnGrouped'
         
