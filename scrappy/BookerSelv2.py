@@ -5,6 +5,7 @@
 # ! Firefox has been used for webdriver #
 
 import os
+import json
 import time
 
 from selenium import webdriver
@@ -19,9 +20,30 @@ from items import BookerMbItem
 
 from dotenv import load_dotenv
 load_dotenv()
+
+with open ('sitemap.json') as j:
+    bookerdict = json.load(j)
+  
+#  work in progresss -----------------------------
+def flatten_json(jsondict):
+    d = {}
+    mylist = bookerdict['categories']
+    for names in mylist:
+        #print (names['name'])
+        dictnames = (names['subCategories'])
+        #print(dictnames)
+        for i in dictnames:
+            for k,v in i.items():
+                print (v)
+                
+print(flatten_json(bookerdict))
+print("...Categories have been processed...")
+time.sleep(2)
+#  ----------------------------------------------
+
 	
 class BookerProductList(Spider):
-    header = {"User-Agent":"Mozilla/5.0 Gecko/20100101 Firefox/33.0"}
+
     name = "booker_mb"
     custom_settings = {"FEEDS": {"booker1.csv":{"format":"csv"}}}
     allowed_domains = ["booker.co.uk"]
@@ -33,13 +55,13 @@ class BookerProductList(Spider):
         pass
     
     def __init__(self):
-
+    
         self.driver = webdriver.Firefox()
         
         self.driver.get('https://www.booker.co.uk/home.aspx')
         self.driver.find_element_by_id ('OutsideHomePageControl_CustomerNumber').send_keys(os.getenv("BOOKER_ACCOUNT"))
         self.driver.find_element_by_id('OutsideHomePageControl_cmdCustomerNumber').click()
-        print(self.driver.title)
+
         time.sleep(2)
              
         self.driver.find_element_by_id ('LoginControl_EmailSingle').send_keys(os.getenv('BOOKER_EMAIL'))
@@ -54,12 +76,7 @@ class BookerProductList(Spider):
         
     def parse(self, response):
 
-        print('logged in')
-
-        products_link = response.xpath('//a[contains(@href,"/catalog/products.aspx")]/@href').get()    
-        print(products_link)
-        
-        # Logged in and now at the home page
+        print('### Logged IN ###')
         
         products="https://www.booker.co.uk/catalog/products.aspx"
         next_url = products
@@ -89,7 +106,8 @@ class BookerProductList(Spider):
         
         print("\n## Now we will go and get all items, eg: BEER ##")
         
-        # Trying one category here, will eventually read all 24 from JSON/sitemap - I have done code to flatten the JSON
+        # Trying one category here, will eventually read all 24 from JSON/sitemap
+        
         
         BEER = 'https://www.booker.co.uk/catalog/products.aspx?categoryName=Default%20Catalog&keywords=beer&view=UnGrouped'
         
