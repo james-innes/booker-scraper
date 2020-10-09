@@ -74,7 +74,7 @@ class BookerProductList(CrawlSpider):
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
         }
 
-        with open('data/sitemap.json') as sitemap:
+        with open('sitemap.json') as sitemap:
             for cat in json.load(sitemap)['categories']:
                 for subCat in cat['subCategories']:
                     yield FormRequest(
