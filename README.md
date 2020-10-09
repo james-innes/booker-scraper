@@ -1,7 +1,5 @@
 # Booker Web Scrapper :snake: :spider_web:
 
-![Screenshot](scrapping-in-action.png)
-
 - Scrap all sub categories of categories of products on booker website
 - scarp each individual product page and get detailed information
 - Store scraped data in database - Excel not cutting it
