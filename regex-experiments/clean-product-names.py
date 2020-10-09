@@ -2,9 +2,13 @@
 import csv
 import re
 
+#* Read names from csv and only work with a number of the rows 
+
 # with open('testing-names.csv', "r", newline='') as f:
 #     reader = csv.DictReader(f)
 #     for index, row in zip(range(50), reader):
+
+#*Instead of csv just inline names
 
 samples = [
     "Tiger Asian Lager Beer 24 x 330ml Bottles",
@@ -16,7 +20,7 @@ samples = [
     "Smirnoff Ice Vodka Mixed Drink 70cl Bottle PMP Â£3.29"
 ]
 
-# Get rid of wholesale qty and other rubbish
+#* Get rid of wholesale qty and other rubbish from product names
 
 substitutions = [
     r'.PMP\s?£?(\d+.?\d+)',
@@ -30,6 +34,7 @@ for sample in samples:
         result = re.sub(rgx, '', sample)
 
     print(result)
+
 
 # # Remove "36 x "
 # first = re.sub(r'(\d+)\s?x\s?', '', title)
