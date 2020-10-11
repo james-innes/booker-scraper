@@ -21,26 +21,30 @@ from items import BookerMbItem
 from dotenv import load_dotenv
 load_dotenv()
 
+# Load sitemap & Parse with flatten_json
+
 with open ('sitemap.json') as j:
     bookerdict = json.load(j)
-  
-#  work in progresss -----------------------------
+
 def flatten_json(jsondict):
     d = {}
+    l = []
     mylist = bookerdict['categories']
     for names in mylist:
-        #print (names['name'])
         dictnames = (names['subCategories'])
-        #print(dictnames)
         for i in dictnames:
             for k,v in i.items():
-                print (v)
+            	l.append(v)
                 
-print(flatten_json(bookerdict))
-print("...Categories have been processed...")
-time.sleep(2)
-#  ----------------------------------------------
+    return(l)
 
+# print("...Dict has been flattened...")
+cat_codes = (flatten_json(bookerdict)[::2]) # These are the Category Codes
+print(cat_codes)
+time.sleep(1)
+cat_names = (flatten_json(bookerdict)[1::2]) # These are the Category Names
+print(cat_names)
+time.sleep(1)
 	
 class BookerProductList(Spider):
 
@@ -70,7 +74,7 @@ class BookerProductList(Spider):
         
         self.cookie = self.driver.get_cookie("ASP.NET_SessionId")
         self.parse(response=self.driver.page_source)
-        self.driver.quit()
+        #self.driver.quit()
         
         # From here onwards Selenium hands back to Scrapy
         
@@ -104,12 +108,17 @@ class BookerProductList(Spider):
     
         print("\n## Now on Products Page of 24 thumbnails menu ##")
         
-        print("\n## Now we will go and get all items, eg: BEER ##")
+        print("\n## Now we will go and get all items, eg: Starting with BEER ##")
         
         # Trying one category here, will eventually read all 24 from JSON/sitemap
         
+   
         
         BEER = 'https://www.booker.co.uk/catalog/products.aspx?categoryName=Default%20Catalog&keywords=beer&view=UnGrouped'
+        CIDER = 'https://www.booker.co.uk/catalog/products.aspx?categoryName=CS13_200020&view=UnGrouped&multi=False'
+        # This is the trial for iterating through all products, use the cat_codes in the full scrape.
+        
+        prod_list = [ BEER, CIDER ]  # use cat_codes in full scrape
         
         headers = {
             'Accept-Encoding': 'gzip, deflate, br',
@@ -130,9 +139,11 @@ class BookerProductList(Spider):
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'  
             }
         
-        # Go from Main listing of 24 thumbnails to a specific Category ( approx 24 categories to visit )   
-        request = Request(url=BEER,callback=self.parse_product)
-        yield request     
+        # Go from Main listing of 24 thumbnails to a specific Category
+        # This is the trial for iterating through all products, use the variable cat_codes in the full scrape instead of 'prod_list'
+        for product in prod_list:   
+            request = Request(url=product,callback=self.parse_product)
+            yield request     
         
 
     def parse_product(self, response):
