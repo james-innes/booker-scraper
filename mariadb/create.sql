@@ -1,41 +1,40 @@
-CREATE DATABASE booker;
+CREATE DATABASE IF NOT EXISTS booker;
 USE booker;
 
 CREATE OR REPLACE TABLE barcode (
-  barcode_id INT(11) NOT NULL AUTO_INCREMENT,
+  barcode_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   barcode VARCHAR(80) NOT NULL,
-  code INT(11) NOT NUL NOT NULL,
+  code INT(11) NOT NULL,
   PRIMARY KEY (barcode_id)
-) ENGINE=InnoDB AUTO_INCREMENT=8;
+);
 
 CREATE OR REPLACE TABLE cat (
-  cat_id INT(11) NOT NULL AUTO_INCREMENT,
+  cat_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   cat_code VARCHAR(20) NOT NULL,
   cat_name VARCHAR(40) NOT NULL,
   PRIMARY KEY (cat_id)
-) ENGINE=InnoDB AUTO_INCREMENT=8;
+);
 
 
 CREATE OR REPLACE TABLE sub_cat (
-  sub_cat_id INT(11) NOT NULL AUTO_INCREMENT,
+  sub_cat_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   sub_cat_code VARCHAR(20) NOT NULL,
   sub_cat_name VARCHAR(40) NOT NULL,
   PRIMARY KEY (sub_cat_id)
-) ENGINE=InnoDB AUTO_INCREMENT=8;
+);
 
 
 CREATE OR REPLACE TABLE shelf (
-  shelf_id INT(11) NOT NULL AUTO_INCREMENT,
+  shelf_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   shelf_code VARCHAR(20) NOT NULL,
   shelf_name VARCHAR(40) NOT NULL,
   PRIMARY KEY (shelf_id)
-) ENGINE=InnoDB AUTO_INCREMENT=8;
+);
 
 
 CREATE OR REPLACE TABLE product (
-  product_id INT(11) NOT NULL AUTO_INCREMENT,
-
-  code INT(11) NOT NUL NOT NULL,
+  product_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  code INT(11) NOT NULL,
   name VARCHAR(40) NOT NULL,
 
   cat_id INT(11) DEFAULT 1,
@@ -57,10 +56,10 @@ CREATE OR REPLACE TABLE product (
   img_big_guid VARCHAR(20) NOT NULL,
 
   /* Possible lookup tables */
-  brand 
-  origin_country
-  packed_country
-  storage_type
+  brand VARCHAR(20) NOT NULL,
+  origin_country VARCHAR(20) NOT NULL,
+  packed_country VARCHAR(20) NOT NULL,
+  storage_type VARCHAR(20) NOT NULL,
 
   /* Product type specific */
   beverage_type VARCHAR(20) NOT NULL,
@@ -78,7 +77,7 @@ CREATE OR REPLACE TABLE product (
 
   PRIMARY KEY (product_id),
   FOREIGN KEY (cat_id) REFERENCES cat(cat_id),
-  FOREIGN KEY (sub_cat_id) REFERENCES aub_cat(sub_cat_id),
-  FOREIGN KEY (shelf_id) REFERENCES shelf_id(shelf_id),
+  FOREIGN KEY (sub_cat_id) REFERENCES sub_cat(sub_cat_id),
+  FOREIGN KEY (shelf_id) REFERENCES shelf(shelf_id),
   UNIQUE (code)
-) ENGINE=INNODB AUTO_INCREMENT=8;
+) ENGINE=InnoDB;
