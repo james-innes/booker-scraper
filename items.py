@@ -3,9 +3,7 @@
 #|r|e|d|a|n|d|g|r|e|e|n|.|c|o|.|u|k|
 #+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
 import scrapy
-
 
 class BookerMbItem(scrapy.Item):
     BPLIC = scrapy.Field()
@@ -16,3 +14,11 @@ class BookerMbItem(scrapy.Item):
     promotionText = scrapy.Field()
     price = scrapy.Field()
     category = scrapy.Field()
+    
+class BookerBarcodeItem(scrapy.Item):
+    Barcode = scrapy.Field()
+    Product_Code = scrapy.Field()
+    Product_Description = scrapy.Field()
+    Pack_Size = scrapy.Field()
+    Sell_Price = scrapy.Field()
+    RRP = scrapy.Field()
