@@ -108,18 +108,13 @@ class BookerProductList(Spider):
     
         print("\n## Now on Products Page of 24 thumbnails menu ##")
         
-        print("\n## Now we will go and get all items, eg: Starting with BEER ##")
+        print("\n## Now we will go and get all items\n...Please Wait!...\n")
         
-        # Trying one category here, will eventually read all 24 from JSON/sitemap
-        
-   
-        
-        BEER = 'https://www.booker.co.uk/catalog/products.aspx?categoryName=Default%20Catalog&keywords=beer&view=UnGrouped'
-        CIDER = 'https://www.booker.co.uk/catalog/products.aspx?categoryName=CS13_200020&view=UnGrouped&multi=False'
-        # This is the trial for iterating through all products, use the cat_codes in the full scrape.
-        
-        prod_list = [ BEER, CIDER ]  # use cat_codes in full scrape
-        
+        # Create all category URLS to visit
+        qs_start = 'https://www.booker.co.uk/catalog/products.aspx?categoryName='
+        qs_end = '&view=UnGrouped&multi=False'      
+        category_urls =[(f"{qs_start}{i}{qs_end}") for i in cat_codes]
+     
         headers = {
             'Accept-Encoding': 'gzip, deflate, br',
             'Accept-Language': 'en-US,en;q=0.9',
@@ -140,9 +135,8 @@ class BookerProductList(Spider):
             }
         
         # Go from Main listing of 24 thumbnails to a specific Category
-        # This is the trial for iterating through all products, use the variable cat_codes in the full scrape instead of 'prod_list'
-        for product in prod_list:   
-            request = Request(url=product,callback=self.parse_product)
+        for category in category_urls:   
+            request = Request(url=category,callback=self.parse_product)
             yield request     
         
 
