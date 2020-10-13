@@ -27,7 +27,7 @@ load_dotenv()
 
 # Load sitemap & Parse with flatten_json
 
-with open ('sitemap.json') as j:
+with open ('data/sitemap.json') as j:
     bookerdict = json.load(j)
 
 def flatten_json(jsondict):
