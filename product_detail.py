@@ -118,11 +118,12 @@ class BookerProductDetail(CrawlSpider):
         # Explore difference between xpath and css selector
 
         l = ItemLoader(item=BookerProductItem(), response=response)
+        l.add_css('product_id', 'selector')
         l.add_css('code', 'selector')
         l.add_css('name', '.pir h3::text()')
         l.add_css('cat_id', 'selector')
-        l.add_css('sub_cat_id', 'selector')
-        l.add_css('shelf_id', 'selector')
+        l.add_css('sub_cat_id ', 'selector')
+        l.add_css('shelf_id ', 'selector')
         l.add_css('wsp_exl_vat', 'selector')
         l.add_css('wsp_inc_vat', 'selector')
         l.add_css('rrp', 'selector')
@@ -132,6 +133,9 @@ class BookerProductDetail(CrawlSpider):
         l.add_css('ws_qty', 'selector')
         l.add_css('rt_qty', 'selector')
         l.add_css('pack_type', 'selector')
+        l.add_css('unit_description', 'selector')
+        l.add_css('on_offer', 'selector')
+        l.add_css('additives', 'selector')
         l.add_css('img_small_guid', 'selector')
         l.add_css('img_big_guid', 'selector')
         l.add_css('brand', 'selector')
@@ -143,13 +147,26 @@ class BookerProductDetail(CrawlSpider):
         l.add_css('alcohol_units', 'selector')
         # Get below descriptive statements as dict maybe
         l.add_css('description', 'selector')
-        l.add_css('tasting_notes', 'selector')
         l.add_css('allergy_advice', 'selector')
         l.add_css('ingredients', 'selector')
         # Work out how to save unpredictable table - maybe as html string
         l.add_css('nutrition', 'selector')
         l.add_css('manufacturer', 'selector')
         l.add_css('packaging', 'selector')
+        l.add_css('alternative_products', 'selector')
+        l.add_css('prepare_and_use', 'selector')
+        l.add_css('storage_information', 'selector')
+        l.add_css('freezing_guidelines', 'selector')
+        l.add_css('additional_information', 'selector')
+        l.add_css('recycling', 'selector')
+        l.add_css('tasting_notes', 'selector')
+        l.add_css('current_vintage', 'selector')
+        l.add_css('wine_colour', 'selector')
+        l.add_css('producer', 'selector')
+        l.add_css('grape_variety', 'selector')
+        l.add_css('closure_type', 'selector')
+        l.add_css('wine_maker', 'selector')
+
         yield l.load_item()
 
 
@@ -157,3 +174,6 @@ if __name__ == "__main__":
     process = CrawlerProcess()
     process.crawl(BookerProductDetail)
     process.start()
+
+
+
