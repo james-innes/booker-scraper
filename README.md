@@ -1,1 +1,1 @@
-# Booker Web Scraper :snake: :spider_web:
+# Booker Scraper :snake: :spider_web:
