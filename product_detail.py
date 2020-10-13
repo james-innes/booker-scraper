@@ -89,7 +89,7 @@ class BookerProductDetail(CrawlSpider):
 
     def parse_product_detail(self, response):
     
-        # Get Big image from Popup
+        #* Get Big image from Popup
         picturePopup = 'https://www.booker.co.uk' + response.css('.pip a::attr(href)').split("'")[1]
         self.driver.execute_script("window.open('');")
         self.driver.switch_to.window(self.driver.window_handles[1])
@@ -99,7 +99,7 @@ class BookerProductDetail(CrawlSpider):
         self.driver.switch_to.window(self.driver.window_handles[0])
         # End
 
-        # Add topInfo dict to ItemLoader
+        #* Add topInfo dict to ItemLoader
         topInfo = dict([
             (
                 i.split(':', 1)[0], i.split(':', 1)[1].strip(' %£')
@@ -108,14 +108,35 @@ class BookerProductDetail(CrawlSpider):
 
         wsQuantity, retailSize = topInfo['Size'].split(' x ')
 
-        # Add these to ItemLoader
+        #* Over complicated (maybe) way of getting description info sections and putting them into a dict
+        productDetail = data.find_elements_by_class_name("piSection")
+        for i in productDetail:
+            i = i.text.split('\n')
+            if len(i) < 3:
+                json_format[i[0]] = i[1]
+            elif ":" in i[1]:
+                # choose comment-in method to save Categories in nested dictionary
+                # json_format[i[0]] = dict([tuple(j.split(':',1)) for j in i[1:]])
+                json_format.update(
+                    dict([tuple(j.split(':', 1)) for j in i[1:]]))
+            elif "Nutrition" in i[0]:
+                json_format[i[0]] = dict(
+                    [tuple(j.rsplit(' ', 1)) for j in i[1:]])
+            elif "Country" in i[0]:
+                json_format.update(
+                    dict([tuple(j.rsplit(' ', 1)) for j in i[1:]]))
+            else:
+                json_format[i[0]] = i[1:]
+        # End
+
+        #* Add these to ItemLoader
         'imgUrlBig': imgUrlBig,
         'imgUrlSmall': response.css('.pir .piTopInfo img::attr(src)').split("'")[0],
         'shelfCode': [int(s) for s in re.findall(r'\d\d\d\d\d\d', response.request.url)][1],
         'retailSize': retailSize,
         'wsQuantity': wsQuantity
 
-        # More work to decide where these go
+        #* More work to decide where these go
         "Case of": "a[href*=\"Case\"]", # 15
         "By Product Category ": "a[href*=\"Product\"]", # Core catering (is this cat or sub_cat)
 
