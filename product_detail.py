@@ -118,7 +118,6 @@ class BookerProductDetail(CrawlSpider):
         # Explore difference between xpath and css selector
 
         l = ItemLoader(item=BookerProductItem(), response=response)
-        l.add_css('product_id', 'selector')
         l.add_css('code', 'selector')
         l.add_css('name', '.pir h3::text()')
         l.add_css('cat_id', 'selector')

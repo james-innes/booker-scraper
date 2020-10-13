@@ -27,7 +27,6 @@ class BookerBarcodeItem(scrapy.Item):
 
 
 class BookerProductItem(scrapy.Item):
-    product_id = scrapy.Field()
     code = scrapy.Field()
     name = scrapy.Field()
     cat_id = scrapy.Field()
