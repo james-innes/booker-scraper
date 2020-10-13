@@ -28,8 +28,8 @@ conn = mariadb.connect(
 cur = conn.cursor(buffered=True)
 
 class BookerProductList(CrawlSpider):
-    name = "booker_mb"
-    allowed_domains = ["booker.co.uk"]
+    name = 'booker_mb'
+    allowed_domains = ['booker.co.uk']
     start_urls = ['https://www.booker.co.uk/home.aspx']
 
     def __init__(self):
@@ -38,7 +38,7 @@ class BookerProductList(CrawlSpider):
         self.driver = webdriver.Firefox(options=options)
 
         self.driver.get('https://www.booker.co.uk/home.aspx')
-        self.driver.find_element_by_id ('OutsideHomePageControl_CustomerNumber').send_keys(os.getenv("BOOKER_ACCOUNT"))
+        self.driver.find_element_by_id ('OutsideHomePageControl_CustomerNumber').send_keys(os.getenv('BOOKER_ACCOUNT'))
         self.driver.find_element_by_id('OutsideHomePageControl_cmdCustomerNumber').click()
         time.sleep(0.5)
 
@@ -47,7 +47,7 @@ class BookerProductList(CrawlSpider):
         self.driver.find_element_by_id('LoginControl_EnterEmailPasswordSubmit').click()
 
         # Gets the Selenium response and passes it onto Scrapy
-        self.cookie = self.driver.get_cookie("ASP.NET_SessionId")
+        self.cookie = self.driver.get_cookie('ASP.NET_SessionId')
         self.parse(response=self.driver.page_source)
         self.driver.quit()
 
@@ -56,7 +56,7 @@ class BookerProductList(CrawlSpider):
             'Accept-Encoding': 'gzip, deflate, br',
             'Accept-Language': 'en-US,en;q=0.9',
             'Connection': 'keep-alive',
-            'Cookie': f"ASP.NET_SessionId={self.cookie['value']}",
+            'Cookie': f'ASP.NET_SessionId={self.cookie['value']}',
             'Host': 'www.booker.co.uk',
             'Referer': 'https://www.booker.co.uk/catalog/mybooker.aspx',
             'Sec-Fetch-Dest': 'document',
@@ -67,26 +67,26 @@ class BookerProductList(CrawlSpider):
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
         }
 
-        cur.execute("SELECT sub_cat_code FROM sub_cat")
+        cur.execute('SELECT sub_cat_code FROM sub_cat')
 
         for result in cur:
             yield Request(
-                url=f"https://www.booker.co.uk/catalog/products.aspx?categoryName={result[0]}", headers=headers, callback=self.parse_product_list)
+                url=f'https://www.booker.co.uk/catalog/products.aspx?categoryName={result[0]}', headers=headers, callback=self.parse_product_list)
 
         cur.close()
         conn.close()
 
     def parse_product_list(self, response):
-        for href in response.css("tr .info_r1 a::attr(href)").extract():
+        for href in response.css('tr .info_r1 a::attr(href)').extract():
             print(parse_qs(urlparse(href).query)['code'][0])
 
-        next_page_url = response.urljoin(response.xpath('//a[text()="Next >>"]//@href').get())
+        next_page_url = response.urljoin(response.xpath('//a[text()='Next >>']//@href').get())
 
         if next_page_url is not None:
             yield Request(next_page_url, callback=self.parse_product_list)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     process = CrawlerProcess()
     process.crawl(BookerProductList)
     process.start()
