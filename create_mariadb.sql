@@ -79,7 +79,7 @@ CREATE TABLE product (
   storage_information VARCHAR(80) NULL,
   freezing_guidelines VARCHAR(80) NULL,
   additional_information VARCHAR(80) NULL,
-  recycling
+  /*recycling - caused error 1064 */
   /* Very product Specific */
   tasting_notes VARCHAR(80) NULL,
   current_vintage VARCHAR(80) NULL,
