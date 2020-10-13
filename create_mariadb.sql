@@ -51,6 +51,9 @@ CREATE TABLE product (
   ws_qty INT(11) NOT NULL,
   rt_qty INT(11) NOT NULL,
   pack_type VARCHAR(40) NOT NULL,
+  unit_description VARCHAR(40) NOT NULL,
+  on_offer VARCHAR(40) NOT NULL,
+  additives VARCHAR(40) NOT NULL,
 
   img_small_guid VARCHAR(20) NOT NULL,
   img_big_guid VARCHAR(20) NOT NULL,
@@ -68,12 +71,25 @@ CREATE TABLE product (
 
   /* Descriptive sections */
   description VARCHAR(80) NOT NULL,
-  tasting_notes VARCHAR(80) NOT NULL,
   allergy_advice VARCHAR(80) NOT NULL,
   ingredients VARCHAR(80) NOT NULL,
   nutrition VARCHAR(80) NOT NULL,
   manufacturer VARCHAR(80) NOT NULL,
   packaging VARCHAR(80) NOT NULL,
+  alternative_products VARCHAR(80) NOT NULL,
+  prepare_and_use VARCHAR(80) NOT NULL,
+  storage_information VARCHAR(80) NOT NULL,
+  freezing_guidelines VARCHAR(80) NOT NULL,
+  additional_information VARCHAR(80) NOT NULL,
+  recycling
+  /* Very product Specific */
+  tasting_notes VARCHAR(80) NOT NULL,
+  current_vintage VARCHAR(80) NOT NULL,
+  wine_colour VARCHAR(80) NOT NULL,
+  producer VARCHAR(80) NOT NULL,
+  grape_variety VARCHAR(80) NOT NULL,
+  closure_type VARCHAR(80) NOT NULL,
+  wine_maker VARCHAR(80) NOT NULL,
 
   PRIMARY KEY (product_id),
   FOREIGN KEY (cat_id) REFERENCES cat(cat_id),
@@ -81,3 +97,11 @@ CREATE TABLE product (
   FOREIGN KEY (shelf_id) REFERENCES shelf(shelf_id),
   UNIQUE (code)
 );
+
+
+
+
+
+
+
+
