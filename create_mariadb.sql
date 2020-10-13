@@ -15,7 +15,6 @@ CREATE TABLE cat (
   PRIMARY KEY (cat_id)
 );
 
-
 CREATE TABLE sub_cat (
   sub_cat_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   sub_cat_code VARCHAR(20) NOT NULL,
@@ -23,14 +22,12 @@ CREATE TABLE sub_cat (
   PRIMARY KEY (sub_cat_id)
 );
 
-
 CREATE TABLE shelf (
   shelf_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   shelf_code VARCHAR(20) NOT NULL,
   shelf_name VARCHAR(40) NOT NULL,
   PRIMARY KEY (shelf_id)
 );
-
 
 CREATE TABLE product (
   product_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
