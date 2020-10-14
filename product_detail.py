@@ -5,6 +5,7 @@
 
 import os, csv, json, time, re, mariadb
 from urllib.parse import urljoin, parse_qs, urlparse
+from scrapy.utils.markup import remove_tags
 from dotenv import load_dotenv
 
 from selenium import webdriver
@@ -28,6 +29,15 @@ load_dotenv()
 # )
 
 # cur = conn.cursor(buffered=True)
+
+#* Maybe reuse login script and put functions in separate files and call all from main.py
+
+# main.py
+# login.py
+# codes.py
+# detail.py
+# barcodes.py
+
 
 class BookerProductDetail(CrawlSpider):
     name = 'booker_mb'
@@ -72,6 +82,7 @@ class BookerProductDetail(CrawlSpider):
         
 
         # cur.execute('SELECT code FROM product')
+        # or select code from barcode table - really not sure atm
 
         # Mock response from db
         cur = [
@@ -90,11 +101,12 @@ class BookerProductDetail(CrawlSpider):
     def parse_product_detail(self, response):
     
         #* Get Big image from Popup
-        picturePopup = 'https://www.booker.co.uk' + response.css('.pip a::attr(href)').split("'")[1]
+        picturePopup = 'https://www.booker.co.uk' + response.css('.pip a::attr(href)').split("'")[1] # not sure if strip works here
         self.driver.execute_script("window.open('');")
+        # not scrapy functions
         self.driver.switch_to.window(self.driver.window_handles[1])
         self.driver.get(picturePopup)
-        imgUrlBig = response.css('img::attr(src)').get_attribute('src').split("'")[0]
+        imgUrlBig = response.css('img::attr(src)').get_attribute('src').extract_first().strip()
         self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
         # End
@@ -129,9 +141,13 @@ class BookerProductDetail(CrawlSpider):
                 json_format[i[0]] = i[1:]
         # End
 
+        #* Once script runs verify where more scrapy tricks can be employed to make code better 
+        # remove_tags()
+        # extract_first().strip()
+
         #* Add these to ItemLoader
         'imgUrlBig': imgUrlBig,
-        'imgUrlSmall': response.css('.pir .piTopInfo img::attr(src)').split("'")[0],
+        'imgUrlSmall': response.css('.pir .piTopInfo img::attr(src)').extract_first().strip(),
         'shelfCode': [int(s) for s in re.findall(r'\d\d\d\d\d\d', response.request.url)][1],
         'retailSize': retailSize,
         'wsQuantity': wsQuantity
@@ -144,10 +160,13 @@ class BookerProductDetail(CrawlSpider):
 
         l = ItemLoader(item=BookerProductItem(), response=response)
         l.add_css('code', '.pip .pir ul li:contains(Code: ) span')
+        # need to use name cleaning
         l.add_css('name', '.pir h3::text()')
+        # can be found on left side nav panel
         l.add_css('cat_id', 'selector')
         l.add_css('sub_cat_id ', 'selector')
         l.add_css('shelf_id ', 'selector')
+        # All come from list but list changes length so can't reply on index
         l.add_css('wsp_exl_vat', '.pip .pir ul li:contains(WSP: ) span')
         l.add_css('wsp_inc_vat', '.pip .pir ul li:contains(WSP inc VAT: ) span')
         l.add_css('rrp', '.pip .pir ul li:contains(RRP: ) span')
@@ -161,8 +180,10 @@ class BookerProductDetail(CrawlSpider):
         l.add_css('on_offer', 'a[href*=\"On+Offer\"]')
         l.add_css('additives', 'a[href*=\"By+Additives\"]')
         l.add_css('img_small_guid', 'selector')
+        # from popup
         l.add_css('img_big_guid', 'selector')
         l.add_css('brand', '.pip #catLinks b:contains(By Brand:) + span a')
+        # Again maybe iterate over dict of possible names in list
         l.add_css('origin_country', 'a[href*=\"By+Country+of+Origin\"]')
         l.add_css('packed_country', 'a[href*=\"By+Packed+In\"]')
         l.add_css('storage_type', 'a[href*=\"By+Storage+Type\"]')
@@ -191,6 +212,24 @@ class BookerProductDetail(CrawlSpider):
         l.add_css('grape_variety', 'a[href*=\"By+Grape+Variety\"]')
         l.add_css('closure_type', 'a[href*=\"By+Type+of+Closure\"]')
         l.add_css('wine_maker', 'a[href*=\"By+Wine+Maker\"]')
+
+        #* Complicated SQL here to see if values are in other table and if they already are then get the id otherwise at it in
+        # can't insert "Craft beer" from scraper - have to search "cat" table for cat_name column if beer is there get ID cat_id otherwise insert and get id of newly inserted row
+
+
+        #* Decisions
+
+        # Bit much overhead having field names defined in SQl and in scrapy item.py and also in ItemLoader and also in SQL insert column names.
+        # Maybe bin scrapy BookerItem and ItemLoader and iterate over keys and values using method from below:
+
+        "https://riptutorial.com/scrapy/example/28697/connecting-and-bulk-inserting-to-mysql-in-scrapy-using-mysqldb-module---python-2-7"
+    
+        self.placeholders = ', '.join(['%s'] * len(item))
+        self.columns = ', '.join(item.keys())
+        self.query = "INSERT INTO %s ( %s ) VALUES ( %s )" % ("table_name", self.columns, self.placeholders)
+        self.items.extend([item.values()])
+        cursor.executemany(self.query, self.items)
+
 
         yield l.load_item()
 
