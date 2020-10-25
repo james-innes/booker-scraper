@@ -179,9 +179,9 @@ class BookerProductDetail(CrawlSpider):
         l.add_css('unit_description', '.pip .pir ul li:contains(Unit Description: ) span')
         l.add_css('on_offer', 'a[href*=\"On+Offer\"]')
         l.add_css('additives', 'a[href*=\"By+Additives\"]')
-        l.add_css('img_small_guid', 'selector')
+        l.add_css('img_small_url', 'selector')
         # from popup
-        l.add_css('img_big_guid', 'selector')
+        l.add_css('img_big_url', 'selector')
         l.add_css('brand', '.pip #catLinks b:contains(By Brand:) + span a')
         # Again maybe iterate over dict of possible names in list
         l.add_css('origin_country', 'a[href*=\"By+Country+of+Origin\"]')

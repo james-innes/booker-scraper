@@ -52,8 +52,8 @@ CREATE TABLE product (
   on_offer VARCHAR(40) NULL,
   additives VARCHAR(40) NULL,
 
-  img_small_guid VARCHAR(20) NULL,
-  img_big_guid VARCHAR(20) NULL,
+  img_small_url VARCHAR(20) NULL,
+  img_big_url VARCHAR(20) NULL,
 
   /* Possible lookup tables */
   brand VARCHAR(20) NULL,
