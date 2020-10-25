@@ -85,19 +85,18 @@ class BookerProductList(CrawlSpider):
 
         for result in cur:
             yield Request(
-                url=f'https://www.booker.co.uk/catalog/products.aspx?categoryName={result[0]}', headers=headers, callback=self.parse_product_list)
+                url=f'https://www.booker.co.uk/catalog/products.aspx?categoryName={result[0]}', headers=headers, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_code=result[0]))
+
+      
+        # yield Request(url="https://www.booker.co.uk/catalog/products.aspx?categoryName=CS13_200001", headers=headers, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_code="CS13_200001"))
 
         cur.close()
         conn.close()
 
-    def parse_product_list(self, response):
-
-        for href in response.css('tr .info_r1 a::attr(href)').extract():
-            print(parse_qs(urlparse(href).query)['code'][0])
-
+    def parse_product_list(self, response, sub_cat_code):
         for pr in response.xpath('.//*[@class="pr"]'):
             l = ItemLoader(item=BookerProductItem(), selector=pr, response=response)
-            l.add_xpath('code', ".//td[@class='packm']/div/text()")
+            l.add_css('code', ".packm div::text")
             l.add_css('name', '.info_r1 a::text')
             l.add_xpath('wsp_exl_vat', ".//li[@class='wsp']/text()")
             l.add_css('rrp', '.price ul li:contains(\"RRP\")::text')
@@ -107,16 +106,27 @@ class BookerProductList(CrawlSpider):
             l.add_css('rt_qty', '.pisize::text')
             l.add_css('img_small_guid', 'img.pi::attr(src)')
             l.add_css('storage_type', 'td.icons li::text')
+            l.add_value('sub_cat_code', sub_cat_code)
             yield l.load_item()
 
-        next_page_url = response.urljoin(
-            response.xpath('//a[text()="Next >> "]//@href').get())
-
+        next_page_url =  response.xpath('//a[text()="Next >>"]//@href').get()
+        absolute_next_page_url = response.urljoin(next_page_url)
         if next_page_url is not None:
-            yield Request(next_page_url, callback=self.parse_product_list)
+            yield Request(absolute_next_page_url, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_code=sub_cat_code))
 
 
 if __name__ == '__main__':
     process = CrawlerProcess()
     process.crawl(BookerProductList)
     process.start()
+
+
+            # l.add_css('cat_code', 'dt.selected::attr(cat)')
+            # l.add_css('cat_name', 'dt.selected::text')
+            # l.add_css('sub_cat_code', 'li.selected::attr(cat)')
+            # l.add_css('sub_cat_name', 'li.selected::text')
+
+        # next_page_url = response.urljoin(response.xpath('//a[text()="Next >> "]//@href').get())
+
+        # if next_page_url is not None:
+        #     yield Request(next_page_url, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_code=sub_cat_code))
