@@ -87,8 +87,6 @@ class BookerProductList(CrawlSpider):
             yield Request(
                 url=f'https://www.booker.co.uk/catalog/products.aspx?categoryName={result[0]}', headers=headers, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_code=result[0]))
 
-        # yield Request(url="https://www.booker.co.uk/catalog/products.aspx?categoryName=CS13_200001", headers=headers, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_code="CS13_200001"))
-
         cur.close()
         conn.close()
 
