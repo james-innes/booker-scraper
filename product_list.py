@@ -103,7 +103,7 @@ class BookerProductList(CrawlSpider):
             l.add_xpath(
                 'ws_qty', ".//div[@class='pibox']/descendant::*/text()")
             l.add_css('rt_qty', '.pisize::text')
-            l.add_css('img_small_url', 'img.pi::attr(src)')
+            l.add_value('img_small_url', 'https://www.booker.co.uk' + response.css('img.pi::attr(src)'))      
             l.add_css('storage_type', 'td.icons li::text')
             l.add_value('sub_cat_code', sub_cat_code)
             yield l.load_item()
