@@ -18,12 +18,9 @@ class BookerMbItem(scrapy.Item):
 
 
 class BookerBarcodeItem(scrapy.Item):
-    Barcode = scrapy.Field()
-    Product_Code = scrapy.Field()
-    Product_Description = scrapy.Field()
-    Pack_Size = scrapy.Field()
-    Sell_Price = scrapy.Field()
-    RRP = scrapy.Field()
+    barcode = scrapy.Field()
+    code = scrapy.Field()
+    sub_cat_code = scrapy.Field()
 
 
 class BookerProductItem(scrapy.Item):
