@@ -3,12 +3,7 @@
 # |r|e|d|a|n|d|g|r|e|e|n|.|c|o|.|u|k|
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-import os
-import csv
-import json
-import time
-import re
-import mariadb
+import os, csv, time, re
 from urllib.parse import urljoin, parse_qs, urlparse
 from dotenv import load_dotenv
 
@@ -21,24 +16,17 @@ from scrapy.http import Request
 from scrapy import Selector
 from scrapy.http import HtmlResponse
 from scrapy.loader import ItemLoader
-from items import BookerBarcodeItem
+from items import Product
+
+import pandas as pd
+import numpy as np
 
 load_dotenv()
 
-conn = mariadb.connect(
-    host=os.getenv('DB_HOST'),
-    user=os.getenv('DB_USER'),
-    password=os.getenv('DB_PASS'),
-    database=os.getenv('DB_NAME')
-)
-
-cur = conn.cursor(buffered=True)
-
-
-class BookerBarcodes(CrawlSpider):
+class ProductSpider(CrawlSpider):
     name = 'booker_mb'
     allowed_domains = ['booker.co.uk']
-    custom_settings = {"FEEDS": {"barcodes.csv": {"format": "csv"}}}
+    custom_settings = {"FEEDS": {"product_list.csv": {"format": "csv"}}}
     start_urls = ['https://www.booker.co.uk/home.aspx']
 
     def __init__(self):
@@ -81,25 +69,38 @@ class BookerBarcodes(CrawlSpider):
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
         }
 
-        cur.execute('SELECT sub_cat_code FROM sub_cat')
+        df = pd.read_csv('sub_cat_code.csv')
 
-        for result in cur:
-            yield Request(url=f'https://www.booker.co.uk/catalog/printbyplof.aspx?printtype=searchcategory&categoryname={result[0]}', headers=headers, callback=self.parse_barcodes, cb_kwargs=dict(sub_cat_code=result[0]))
+        for index, result in df.iterrows():
+            yield Request(
+                url=f'https://www.booker.co.uk/catalog/products.aspx?categoryName={result[0]}', headers=headers, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_code=result[0]))
 
-        cur.close()
-        conn.close()
-
-    def parse_barcodes(self, response, sub_cat_code):
-        for product in response.xpath('//*[@class="genericListItem"]'):
-            l = ItemLoader(item=BookerBarcodeItem(),
-                           selector=product, response=response)
-            l.add_xpath('barcode', 'td[1]//img/@alt')
-            l.add_xpath('code', 'td[2]//text()')
+    def parse_product_list(self, response, sub_cat_code):
+        for pr in response.xpath('.//*[@class="pr"]'):
+            l = ItemLoader(item=Product(),
+                           selector=pr, response=response)
+            l.add_css('code', ".packm div::text")
+            l.add_css('name', '.info_r1 a::text')
+            l.add_xpath('wsp_exl_vat', ".//li[@class='wsp']/text()")
+            l.add_css('rrp', '.price ul li:contains(\"RRP\")::text')
+            l.add_css('por', '.price ul li:contains(\"POR\")::text')
+            l.add_css('vat', '.price ul li:contains(\"VAT\")::text')
+            l.add_xpath(
+                'ws_qty', ".//div[@class='pibox']/descendant::*/text()")
+            l.add_css('rt_qty', '.pisize::text')
+            l.add_value('img_small_url', 'https://www.booker.co.uk' +
+                        response.css('img.pi::attr(src)'))
+            l.add_css('storage_type', 'td.icons li::text')
             l.add_value('sub_cat_code', sub_cat_code)
             yield l.load_item()
+
+        next_page_url = response.xpath('//a[text()="Next >>"]//@href').get()
+        absolute_next_page_url = response.urljoin(next_page_url)
+        if next_page_url is not None:
+            yield Request(absolute_next_page_url, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_code=sub_cat_code))
 
 
 if __name__ == '__main__':
     process = CrawlerProcess()
-    process.crawl(BookerBarcodes)
+    process.crawl(ProductSpider)
     process.start()

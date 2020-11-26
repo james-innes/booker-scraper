@@ -3,7 +3,7 @@
 # |r|e|d|a|n|d|g|r|e|e|n|.|c|o|.|u|k|
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-import os, csv, json, time, re, mariadb
+import os, csv, time, re
 from urllib.parse import urljoin, parse_qs, urlparse
 from scrapy.utils.markup import remove_tags
 from dotenv import load_dotenv
@@ -17,29 +17,14 @@ from scrapy.http import Request
 from scrapy import Selector
 from scrapy.http import HtmlResponse
 from scrapy.loader import ItemLoader
-from items import BookerProductItem
+from items import Product
+
+import pandas as pd
+import numpy as np
 
 load_dotenv()
 
-# conn = mariadb.connect(
-#     host=os.getenv('DB_HOST'),
-#     user=os.getenv('DB_USER'),
-#     password=os.getenv('DB_PASS'),
-#     database=os.getenv('DB_NAME')
-# )
-
-# cur = conn.cursor(buffered=True)
-
-#* Maybe reuse login script and put functions in separate files and call all from main.py
-
-# main.py
-# login.py
-# codes.py
-# detail.py
-# barcodes.py
-
-
-class BookerProductDetail(CrawlSpider):
+class ProductSpider(CrawlSpider):
     name = 'booker_mb'
     allowed_domains = ['booker.co.uk']
     custom_settings = {'FEEDS': {'/data/product_detail.csv':{'format':'csv'}}}
@@ -81,22 +66,19 @@ class BookerProductDetail(CrawlSpider):
         }
         
 
-        # cur.execute('SELECT code FROM product')
-        # or select code from barcode table - really not sure atm
-
-        # Mock response from db
-        cur = [
+        codes = [
             [258721],
             [173128],
             [255483],
         ]
 
-        for result in cur:
-            yield Request(
-                url=f'https://www.booker.co.uk/catalog/productinformation.aspx?code={result[0]}', headers=headers, callback=self.parse_product_detail)
+        # df = pd.read_csv('code.csv')
 
-        # cur.close()
-        # conn.close()
+        # for index, row in df.iterrows():
+
+        for row in codes:
+            yield Request(
+                url=f'https://www.booker.co.uk/catalog/productinformation.aspx?code={row[0]}', headers=headers, callback=self.parse_product_detail)
 
     def parse_product_detail(self, response):
     
@@ -158,7 +140,7 @@ class BookerProductDetail(CrawlSpider):
 
         # Explore difference between xpath and css selector
 
-        l = ItemLoader(item=BookerProductItem(), response=response)
+        l = ItemLoader(item=Product(), response=response)
         l.add_css('code', '.pip .pir ul li:contains(Code: ) span')
         # need to use name cleaning
         l.add_css('name', '.pir h3::text()')
@@ -213,30 +195,12 @@ class BookerProductDetail(CrawlSpider):
         l.add_css('closure_type', 'a[href*=\"By+Type+of+Closure\"]')
         l.add_css('wine_maker', 'a[href*=\"By+Wine+Maker\"]')
 
-        #* Complicated SQL here to see if values are in other table and if they already are then get the id otherwise at it in
-        # can't insert "Craft beer" from scraper - have to search "cat" table for cat_name column if beer is there get ID cat_id otherwise insert and get id of newly inserted row
-
-
-        #* Decisions
-
-        # Bit much overhead having field names defined in SQl and in scrapy item.py and also in ItemLoader and also in SQL insert column names.
-        # Maybe bin scrapy BookerItem and ItemLoader and iterate over keys and values using method from below:
-
-        "https://riptutorial.com/scrapy/example/28697/connecting-and-bulk-inserting-to-mysql-in-scrapy-using-mysqldb-module---python-2-7"
-    
-        self.placeholders = ', '.join(['%s'] * len(item))
-        self.columns = ', '.join(item.keys())
-        self.query = "INSERT INTO %s ( %s ) VALUES ( %s )" % ("table_name", self.columns, self.placeholders)
-        self.items.extend([item.values()])
-        cursor.executemany(self.query, self.items)
-
-
         yield l.load_item()
 
 
 if __name__ == '__main__':
     process = CrawlerProcess()
-    process.crawl(BookerProductDetail)
+    process.crawl(ProductSpider)
     process.start()
 
 

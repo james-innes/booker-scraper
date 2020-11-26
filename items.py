@@ -5,7 +5,6 @@
 
 import scrapy
 
-
 class BookerMbItem(scrapy.Item):
     BPLIC = scrapy.Field()
     alt = scrapy.Field()
@@ -17,13 +16,13 @@ class BookerMbItem(scrapy.Item):
     category = scrapy.Field()
 
 
-class BookerBarcodeItem(scrapy.Item):
+class Barcode(scrapy.Item):
     barcode = scrapy.Field()
     code = scrapy.Field()
     sub_cat_code = scrapy.Field()
 
 
-class BookerProductItem(scrapy.Item):
+class Product(scrapy.Item):
     code = scrapy.Field()
     name = scrapy.Field()
     cat_code = scrapy.Field()

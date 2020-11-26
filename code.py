@@ -3,7 +3,7 @@
 # |r|e|d|a|n|d|g|r|e|e|n|.|c|o|.|u|k|
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-import os, csv, json, time, re, mariadb
+import os, csv, time, re
 from urllib.parse import urljoin, parse_qs, urlparse
 from dotenv import load_dotenv
 
@@ -16,18 +16,13 @@ from scrapy.http import Request
 from scrapy import Selector
 from scrapy.http import HtmlResponse
 
+import pandas as pd
+import numpy as np
+
 load_dotenv()
 
-conn = mariadb.connect(
-    host=os.getenv('DB_HOST'),
-    user=os.getenv('DB_USER'),
-    password=os.getenv('DB_PASS'),
-    database=os.getenv('DB_NAME')
-)
 
-cur = conn.cursor(buffered=True)
-
-class BookerProductList(CrawlSpider):
+class CodeSpider(CrawlSpider):
     name = 'booker_mb'
     allowed_domains = ['booker.co.uk']
     start_urls = ['https://www.booker.co.uk/home.aspx']
@@ -67,14 +62,11 @@ class BookerProductList(CrawlSpider):
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
         }
 
-        cur.execute('SELECT sub_cat_code FROM sub_cat')
+        df = pd.read_csv('sub_cat_code.csv')
 
-        for result in cur:
+        for index, row in df.iterrows():
             yield Request(
-                url=f'https://www.booker.co.uk/catalog/products.aspx?categoryName={result[0]}', headers=headers, callback=self.parse_product_list)
-
-        cur.close()
-        conn.close()
+                url=f'https://www.booker.co.uk/catalog/products.aspx?categoryName={row[0]}', headers=headers, callback=self.parse_product_list)
 
     def parse_product_list(self, response):
         for href in response.css('tr .info_r1 a::attr(href)').extract():
@@ -88,5 +80,5 @@ class BookerProductList(CrawlSpider):
 
 if __name__ == '__main__':
     process = CrawlerProcess()
-    process.crawl(BookerProductList)
+    process.crawl(CodeSpider)
     process.start()
