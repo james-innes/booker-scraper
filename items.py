@@ -29,7 +29,6 @@ class Product(scrapy.Item):
     cat_name = scrapy.Field()
     sub_cat_code = scrapy.Field()
     sub_cat_name = scrapy.Field()
-    shelf_id = scrapy.Field()
     wsp_exl_vat = scrapy.Field()
     wsp_inc_vat = scrapy.Field()
     rrp = scrapy.Field()
@@ -71,4 +70,5 @@ class Product(scrapy.Item):
     grape_variety = scrapy.Field()
     closure_type = scrapy.Field()
     wine_maker = scrapy.Field()
+    case_of = scrapy.Field()
 
