@@ -12,6 +12,11 @@ substitutions = [
     r'/[^\x00-\x7F]|\?'
 ]
 
+# TODO:
+# Remove "Retail "
+# Ensure items with no image or price
+# id no RRP then use markup on wholesale price
+
 for index, row in df.iterrows():
     for rgx in substitutions:
         row[2] = re.sub(rgx, '', row[2])
