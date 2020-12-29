@@ -4,7 +4,6 @@
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 import scrapy
-
 class BookerMbItem(scrapy.Item):
     BPLIC = scrapy.Field()
     alt = scrapy.Field()
@@ -41,8 +40,8 @@ class Product(scrapy.Item):
     unit_description = scrapy.Field()
     on_offer = scrapy.Field()
     additives = scrapy.Field()
-    img_small_url = scrapy.Field()
-    img_big_url = scrapy.Field()
+    img_small = scrapy.Field()
+    img_big = scrapy.Field()
     brand = scrapy.Field()
     origin_country = scrapy.Field()
     packed_country = scrapy.Field()

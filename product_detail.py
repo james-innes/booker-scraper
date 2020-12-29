@@ -23,7 +23,6 @@ from items import Product
 import pandas as pd
 import numpy as np
 
-
 load_dotenv()
 
 safe_attrs = clean.defs.safe_attrs
@@ -69,12 +68,6 @@ class ProductSpider(CrawlSpider):
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
         }
 
-        codes = [
-            [258721],
-            [173128],
-            [255483],
-        ]
-
         df = pd.read_csv('code.csv')
 
         for index, row in df.iterrows():
@@ -90,15 +83,16 @@ class ProductSpider(CrawlSpider):
             nutritionTable = None
         else:
             nutritionTable = cleaner.clean_html(w3lib.html.replace_escape_chars(nutritionTableRaw, which_ones=('\n', '\t', '\r'), encoding=None))
-
      
         l = ItemLoader(item=Product(), response=response)
         l.add_css('code', ".pip .pir ul li:contains('Code: ') span::text")
         l.add_css('name', '.pip h3::text')
-        l.add_css('cat_code', '.siteNav dt.selected::attr(cat)')
-        l.add_css('cat_name', '.siteNav dt.selected::text')
-        l.add_css('sub_cat_code', '.siteNav dt.selected + dd li.selected::attr(cat)')
-        l.add_css('sub_cat_name', '.siteNav dt.selected + dd li.selected::text')
+
+        # .selected class on side nav does not appear in scrapper
+        # l.add_css('cat_code', '.siteNav dt.selected::attr(cat)')
+        # l.add_css('cat_name', '.siteNav dt.selected::text')
+        # l.add_css('sub_cat_code', '.siteNav dt.selected + dd li.selected::attr(cat)')
+        # l.add_css('sub_cat_name', '.siteNav dt.selected + dd li.selected::text')
 
         l.add_css('wsp_exl_vat', ".pip .pir ul li:contains('WSP: ') span::text")
         l.add_css('wsp_inc_vat', ".pip .pir ul li:contains('WSP inc VAT: ') span::text")
@@ -110,8 +104,7 @@ class ProductSpider(CrawlSpider):
         l.add_css('pack_type', 'a[href*="By+Pack+Type"]::text')
         l.add_css('unit_description', '.pip .pir ul li:contains("Unit Description: ") span::text')
         l.add_css('additives', 'a[href*="By+Additives"]::text')
-        l.add_css('img_small_url', '.pir .piTopInfo img::attr(src)')
-
+        l.add_css('img_small', '.pip .piTopInfo img::attr(src)')
         l.add_css('brand', '.pip #catLinks b:contains("By Brand:") + span a::text')
 
         l.add_css('origin_country', 'a[href*="By+Country+of+Origin"]::text')
@@ -154,7 +147,7 @@ class ProductSpider(CrawlSpider):
     def parse_image(self, response):
         imgUrlBig = 'https://www.booker.co.uk' + response.css('img::attr(src)').extract_first()
         l = response.meta['l']
-        l.add_value('img_big_url', imgUrlBig)
+        l.add_value('img_big', imgUrlBig)
         yield l.load_item()
 
 if __name__ == '__main__':
