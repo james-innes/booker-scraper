@@ -9,13 +9,9 @@ substitutions = [
     r'/\?ÕÌ_|_Œ‚|[ŠŽÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØÙÚÛÜÝÞßðÿ_]+',
     r'.PMP\s?£?(\d+.?\d+)',  # "PMP £3.29"
     r'(\d+)\s?x\s?',  # Remove "36 x "
-    r'/[^\x00-\x7F]|\?'
+    r'/[^\x00-\x7F]|\?',
+    r'retail\s/gi' # Remove "Retail"
 ]
-
-# TODO:
-# Remove "Retail "
-# Ensure items with no image or price
-# id no RRP then use markup on wholesale price
 
 for index, row in df.iterrows():
     for rgx in substitutions:
