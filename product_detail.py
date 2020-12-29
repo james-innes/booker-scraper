@@ -75,11 +75,9 @@ class ProductSpider(CrawlSpider):
             [255483],
         ]
 
-        # df = pd.read_csv('code.csv')
+        df = pd.read_csv('code.csv')
 
-        # for index, row in df.iterrows():
-
-        for row in codes:
+        for index, row in df.iterrows():
             yield Request(
                 url=f'https://www.booker.co.uk/catalog/productinformation.aspx?code={row[0]}', headers=self.headers, callback=self.parse_product_detail, cb_kwargs=dict(code=row[0]))
 
