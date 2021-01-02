@@ -38,10 +38,7 @@ Final output is `catalog.csv`.
 q -H -O -d , \
 "SELECT
     product.code,
-    product.name,
     category.sub_cat_name AS cat,
-    product.img_small,
-    product.img_big,
     (CAST(
         (
             CAST(
@@ -56,6 +53,9 @@ q -H -O -d , \
             AS REAL)
         * 100)
     AS INT)) AS price,
+    product.name,
+    product.img_small,
+    product.img_big,
     product.product_info AS info
     FROM
         product.csv product
@@ -74,4 +74,4 @@ q -H -O -d , \
 
 - Remove pound sign from all currency.
 - Remove duplicates based on product names  
-`awk -F ',' '!seen[$3]++' catalog.csv > newcatalog.csv`
+`awk -F ',' '!seen[$4]++' catalog.csv > newcatalog.csv`
