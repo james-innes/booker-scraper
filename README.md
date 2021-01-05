@@ -64,9 +64,9 @@ q -H -O -d , \
     WHERE
         category.sub_cat_code IN (SELECT sub_cat_code FROM sub_cat_selection.csv)
     AND
-        img_small NOT NULL
+        img_small like 'https%'
     AND
-        img_big NOT NULL
+        img_big like 'https%'
 " > catalog.csv
 ```
 
