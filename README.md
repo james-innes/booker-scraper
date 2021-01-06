@@ -26,24 +26,13 @@ From list view scrap all product `code` and associate `sub_cat_code`.
 
 ### 4. Product Page
 
-Using `category.csv` each product page can be scraped using the `code` and the `sub_cat_code` is also noted as it can not be determined from the product page.
+Using `product` table each product page can be scraped using the `code`. The `sub_cat_code` is also noted as it can not be determined from the product page.
 
 ### 5. Put the data together
 
 Collate the product page data with the `sub_cat_name` and format some of the fields.  
 Only use certain sub categories persisted in `sub_cat_selection.csv`.  
-Final output is `catalog.csv`.
-
-`./stored_procedure.sql`
-
-```bash
-q -H -O -d , \
-"
-
-** Stored Procedure here**
-
-" > catalog.csv
-```
+Final output is `catalog` view.
 
 ## TODO
 
