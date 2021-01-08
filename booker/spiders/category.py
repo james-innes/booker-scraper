@@ -6,15 +6,13 @@
 import os, csv, re
 from urllib.parse import urljoin
 from dotenv import load_dotenv
+import sqlite3
 
 import scrapy
-from scrapy.http import Request    
+from scrapy.http import Request
 from scrapy.http import HtmlResponse
 from scrapy.loader import ItemLoader
-from booker.items  import Product
-
-import pandas as pd
-import numpy as np
+from booker.items import Product
 
 load_dotenv()
 
@@ -25,9 +23,7 @@ class CategorySpider(scrapy.Spider):
     start_urls = ['https://www.booker.co.uk/home.aspx']
 
     def parse(self, response):
-        df = pd.read_csv('sitemap.csv')
-
-        for index, result in df.iterrows():
+        for row in sqlite3.connect('stores.db').execute("SELECT * FROM sitemap").fetchall():
             yield Request(
                 url=f'https://www.booker.co.uk/catalog/products.aspx?categoryName={result[0]}', cookies={'ASP.NET_SessionId': os.getenv('ASP_NET_SESSION')}, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_name=result[2], sub_cat_code=result[0]))
 
@@ -39,7 +35,8 @@ class CategorySpider(scrapy.Spider):
             l.add_value('sub_cat_code', sub_cat_code)
             yield l.load_item()
 
-        next_page_url = response.urljoin(response.xpath('//a[text()="Next >>"]//@href').get())
+        next_page_url = response.urljoin(
+            response.xpath('//a[text()="Next >>"]//@href').get())
 
         if next_page_url is not None:
             yield Request(next_page_url, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_name=sub_cat_name, sub_cat_code=sub_cat_code))

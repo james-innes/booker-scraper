@@ -6,6 +6,7 @@
 import os, csv, re
 from urllib.parse import urljoin, parse_qs, urlparse
 from dotenv import load_dotenv
+import sqlite3
 
 import scrapy
 from scrapy.http import Request
@@ -13,9 +14,6 @@ from scrapy import Selector
 from scrapy.http import HtmlResponse
 from scrapy.loader import ItemLoader
 from booker.items import Barcode
-
-import pandas as pd
-import numpy as np
 
 load_dotenv()
 
@@ -26,9 +24,7 @@ class BarcodeSpider(scrapy.Spider):
 	start_urls = ['https://www.booker.co.uk/home.aspx']
 
 	def parse(self, response):
-		df = pd.read_csv('sitemap.csv')
-
-		for index, row in df.iterrows():
+		for row in sqlite3.connect('stores.db').execute("SELECT * FROM sitemap").fetchall():
 			yield Request(url=f'https://www.booker.co.uk/catalog/printbyplof.aspx?printtype=searchcategory&categoryname={row[0]}', cookies={'ASP.NET_SessionId': os.getenv('ASP_NET_SESSION')}, callback=self.parse_barcode, cb_kwargs=dict(sub_cat_code=row[0]))
 
 	def parse_barcode(self, response, sub_cat_code):
