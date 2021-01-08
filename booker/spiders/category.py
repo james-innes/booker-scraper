@@ -25,7 +25,7 @@ class CategorySpider(scrapy.Spider):
     def parse(self, response):
         for row in sqlite3.connect('stores.db').execute("SELECT * FROM sitemap").fetchall():
             yield Request(
-                url=f'https://www.booker.co.uk/catalog/products.aspx?categoryName={result[0]}', cookies={'ASP.NET_SessionId': os.getenv('ASP_NET_SESSION')}, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_name=result[2], sub_cat_code=result[0]))
+                url=f'https://www.booker.co.uk/catalog/products.aspx?categoryName={row[0]}', cookies={'ASP.NET_SessionId': os.getenv('ASP_NET_SESSION')}, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_name=row[2], sub_cat_code=row[0]))
 
     def parse_product_list(self, response, sub_cat_name, sub_cat_code):
         for pr in response.xpath('.//*[@class="pr"]'):
