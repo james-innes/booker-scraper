@@ -13,7 +13,7 @@ BOOKER_PASSWORD=
 ASP_NET_SESSION=
 ```
 
-Run `session.py`. Copy printed token as env variable `ASP_NET_SESSION`.
+Run `login.py`. Copy printed token as env variable `ASP_NET_SESSION`.
 
 
 ### 2. Sitemap
