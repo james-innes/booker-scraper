@@ -3,6 +3,7 @@ import os
 import time
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.common.keys import Keys
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -10,18 +11,12 @@ print("Be patient :)")
 options = Options()
 options.headless = True
 driver = webdriver.Firefox(options=options)
-driver.get('https://www.booker.co.uk/home.aspx')
-driver.find_element_by_id('OutsideHomePageControl_CustomerNumber').send_keys(
-    os.getenv('BOOKER_ACCOUNT'))
-driver.find_element_by_id('OutsideHomePageControl_cmdCustomerNumber').click()
+driver.get('https://www.booker.co.uk/home')
+driver.find_element_by_id('CustomerNumber').send_keys(os.getenv('BOOKER_ACCOUNT'), Keys.RETURN)
 time.sleep(0.5)
-driver.find_element_by_id('LoginControl_EmailSingle').send_keys(
-    os.getenv('BOOKER_EMAIL'))
-driver.find_element_by_id('LoginControl_PasswordSingle').send_keys(
-    os.getenv('BOOKER_PASSWORD'))
-driver.find_element_by_id('LoginControl_EnterEmailPasswordSubmit').click()
-cookie = driver.get_cookie('ASP.NET_SessionId')
-session = cookie['value']
+driver.find_element_by_id('Email').send_keys(os.getenv('BOOKER_EMAIL'))
+driver.find_element_by_id('Password').send_keys(os.getenv('BOOKER_PASSWORD'), Keys.RETURN)
+session = driver.get_cookie('ASP.NET_SessionId')['value']
 driver.quit()
 
 print(session)
