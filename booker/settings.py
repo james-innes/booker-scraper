@@ -1,7 +1,7 @@
 BOT_NAME = 'booker'
 SPIDER_MODULES = ['booker.spiders']
 NEWSPIDER_MODULE = 'booker.spiders'
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 FEED_EXPORTERS = {
     'csv': 'booker.csvexporter.QuoteAllCsvItemExporter',
 }

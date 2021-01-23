@@ -20,17 +20,17 @@ load_dotenv()
 class BarcodeSpider(scrapy.Spider):
 	name = 'barcode'
 	allowed_domains = ['booker.co.uk']
+	start_urls = ['https://www.booker.co.uk']
 	custom_settings = {"FEEDS": {"barcode.csv": {"format": "csv"}}}
-	start_urls = ['https://www.booker.co.uk/home.aspx']
 
 	def parse(self, response):
 		for row in sqlite3.connect('stores.db').execute("SELECT * FROM sitemap").fetchall():
-			yield Request(url=f'https://www.booker.co.uk/catalog/printbyplof.aspx?printtype=searchcategory&categoryname={row[0]}', cookies={'ASP.NET_SessionId': os.getenv('ASP_NET_SESSION')}, callback=self.parse_barcode, cb_kwargs=dict(sub_cat_code=row[0]))
+			yield Request(url=f'https://www.booker.co.uk/products/print-product-list-ungroup?printType=ProductList&categoryName={row[0]}', cookies={'ASP.NET_SessionId': os.getenv('ASP_NET_SESSION'), '.ASPXAUTH': os.getenv('ASPXAUTH')}, callback=self.parse_barcode, cb_kwargs=dict(sub_cat_code=row[0]))
 
 	def parse_barcode(self, response, sub_cat_code):
-		for product in response.xpath('//*[@class="genericListItem"]'):
-				l = ItemLoader(item=Barcode(), selector=product, response=response)
-				l.add_xpath('barcode', 'td[1]//img/@alt')
-				l.add_xpath('code', 'td[2]//text()')
-				l.add_value('sub_cat_code', sub_cat_code)
-				yield l.load_item()
+		for tr in response.css('.table-desktop tr'):
+			l = ItemLoader(item=Barcode(), selector=tr, response=response)
+			l.add_css('barcode', 'svg::attr(jsbarcode-value)')
+			l.add_css('code', 'td:nth-of-type(2)::text')
+			l.add_value('sub_cat_code', sub_cat_code)
+			yield l.load_item()

@@ -4,50 +4,58 @@ from bs4 import BeautifulSoup, Comment
 import re
 
 class ProductPipeline:
-    def process_item(self, item, spider):
-        adapter = ItemAdapter(item)
+	def process_item(self, item, spider):
+		adapter = ItemAdapter(item)
 
-        name = adapter.get('name')[0]
-        for rgx in [
-            r'/\?ÕÌ_|_Œ‚|[ŠŽÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØÙÚÛÜÝÞßðÿ_]+',
-            r'.PMP\s?£?(\d+.?\d+)',  # "PMP £3.29"
-            r'(\d+)\s?x\s?',  # Remove "36 x "
-            r'/[^\x00-\x7F]|\?',
-            r'retail\s/gi', # Remove "Retail"
-            r'.\([0-9]+[a-z]{0,2}\)' # "Drink 100g (800g)" -> "Drink 100g"
-        ]: name = re.sub(rgx, '', name)
-        adapter['name'] = name
+		def clean_image(image):
+			image = re.sub(r'\/bbimages', '', image)
+			return image
+				
+		def clean_name(name):
+			for rgx in [
+				r'/\?ÕÌ_|_Œ‚|[ŠŽÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØÙÚÛÜÝÞßðÿ_]+',
+				r'.PMP\s?£?(\d+.?\d+)', # PMP £3.29
+				r'(\d+)\s?x\s?', # 36 x
+				r'/[^\x00-\x7F]|\?',
+				r'retail\s/gi', # Retail
+				r'.\([0-9]+[a-z]{0,2}\)' # "Drink 100g (800g)" -> "Drink 100g"
+			]: name = re.sub(rgx, '', name.lstrip())
+			return name
 
-        def remove_attrs(soup):
-            for tag in soup.findAll(True): 
-                tag.attrs = None
-            return soup
+		def clean_value(value):
+			for rgx in [
+				r'[£%]',
+				r'POR: ',
+				r'RRP: '
+			]: value = re.sub(rgx, '', value)
+			return value
 
-        if adapter.get('nutrition_table'): 
-            nutrition_table = adapter.get('nutrition_table')[0]
-            soup = BeautifulSoup(nutrition_table, "html.parser")
-            nutrition_table = remove_attrs(soup)
-            adapter['nutrition_table'] = nutrition_table
+		def clean_html(html):
+			for rgx in [
+				r'\ {2,}',
+			]: html = re.sub(rgx, '', str(html))
 
-        if 'product_info' in adapter:
-            product_info = adapter.get('product_info')
-            soup = BeautifulSoup(product_info, "html.parser")
-            product_info = remove_attrs(soup)
-            for comment in soup.findAll(text=lambda text:isinstance(text, Comment)):
-                comment.extract()
-            adapter['product_info'] = product_info
-        else:
-            adapter['product_info'] = None
+			soup = BeautifulSoup(html, "html.parser")
+			for tag in soup.findAll(True): tag.attrs = None
+			for comment in soup.findAll(text=lambda text:isinstance(text, Comment)): comment.extract()
 
-        if "img_small" in adapter:
-            img_small = 'https://www.booker.co.uk' + adapter.get('img_small')[0]
-            adapter['img_small'] = img_small
+			soup = re.sub(r'span>By ', 'span>', str(soup))
+			soup = re.sub(r'(<br\/>){1,}', '<br />', str(soup))
+			return soup
+		
 
-        if "img_big" in adapter:
-            img_big = 'https://www.booker.co.uk' + adapter.get('img_big')[0]
-            adapter['img_big'] = img_big
+		if spider.name == "product_list":
+			adapter['img_small'] = clean_image(adapter.get('img_small')[0])
+			if adapter.get('por'): adapter['por'] = clean_value(adapter.get('por')[0])
+			if adapter.get('rrp'): adapter['rrp'] = clean_value(adapter.get('rrp')[0])
+			adapter['wsp_inc_vat'] = clean_value(adapter.get('wsp_inc_vat')[0])
+
+		if spider.name == "product_detail":
+			adapter['name'] = clean_name(adapter.get('name'))
+			adapter['code'] = adapter.get('code')[0]
+			adapter['img_big'] = clean_image(adapter.get('img_big')[0])
+			adapter['info'] = clean_html(adapter.get('info'))
+
+		return item
 
 
-        adapter['code'] = adapter['code'][0]
-
-        return item
