@@ -33,7 +33,3 @@ From the aforementioned step we have the `category` table which we now use to sc
 ### 5. Put the data together
 
 Import CSV files as table into SQLite DB which collates the information using views.
-
-## TODO
-
-- Automate renaming of cats e.g remove "Retail" and replace "and" with "&"
