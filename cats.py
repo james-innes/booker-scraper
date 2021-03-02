@@ -11,7 +11,7 @@ replacements = [
     [r'.?professional', ''],
     [r'dog', 'Dog Food'],
     [r'cat', 'Cat Food'],
-    [r'Dishwasher and Washing Up', 'Washing Up']
+    [r'Dishwasher & Washing Up', 'Washing Up']
 ]
 
 for cat in cats:
