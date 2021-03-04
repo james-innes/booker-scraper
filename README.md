@@ -25,11 +25,15 @@ Sitemap manually copied from side nav pane. Could be automated.
 From list view scrap all product `code` and associate `sub_cat_code` as well as price information.  
 `scrapy crawl product_list`
 
+Load outputted CSV file into Database for the following step!
+
 ### 4. Product Detail
 
 From the aforementioned step we have the `product_list` table which we now use to scrap each product page using the `code`.
 `scrapy crawl product_detail`
 
-### 5. Put the data together
+Load the data into database.
 
-Import CSV files as table into SQLite DB which collates the information using views.
+### 5. View the database
+
+SQLite views collate data which can be exported to CSV.
