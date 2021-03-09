@@ -2,7 +2,7 @@ import re
 import sqlite3
 import pandas as pd
 
-cats = sqlite3.connect('stores.db').execute("SELECT * FROM cats").fetchall()
+cats = sqlite3.connect('stores.db').execute("SELECT * FROM catalog_cats").fetchall()
 new_cats = []
 
 replacements = [
