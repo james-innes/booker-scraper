@@ -40,8 +40,7 @@ with open('barcode.csv', 'w', newline='') as f:
 
         writer.writerow({
           'barcode': barcode,
-          'code': tr.find_element_by_css_selector('td:nth-of-type(2)').text,
-          'sub_cat_code': row[0],
+          'code': tr.find_element_by_css_selector('td:nth-of-type(2)').text
         })
 
 d.quit()
