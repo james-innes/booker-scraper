@@ -38,6 +38,7 @@ class ProductListSpider(scrapy.Spider):
 			l.add_css('wsp_inc_vat', '.price p::text')
 			l.add_css('rrp', 'span:contains("RRP: ")::text')
 			l.add_css('por', 'span:contains("POR: ")::text')
+      # l.add_css('case', 'span:contains("POR: ")::text')
 
 			yield l.load_item()
 
@@ -45,4 +46,4 @@ class ProductListSpider(scrapy.Spider):
 			response.css('.page-link[rel=next]::attr(href)').get())
 
 		if next_page_url is not None:
-			yield Request(next_page_url, cookies={'ASP.NET_SessionId': os.getenv('ASP_NET_SESSION'), '.ASPXAUTH': os.getenv('ASPXAUTH')}, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_name=sub_cat_name, sub_cat_code=sub_cat_code))
+			yield Request(next_page_url, cookies={'ASP.NET_SessionId': os.getenv('ASP_NET_SESSION'), '.ASPXAUTH': os.getenv('ASPXAUTH')}, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_code=sub_cat_code))

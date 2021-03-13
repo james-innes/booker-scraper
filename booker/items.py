@@ -7,19 +7,14 @@ import scrapy
 from scrapy.loader.processors import Join, MapCompose, TakeFirst
 from w3lib.html import replace_escape_chars
 
-class Sitemap(scrapy.Item):
-    sub_cat_code = scrapy.Field()
-    cat_name = scrapy.Field()
-    sub_cat_name = scrapy.Field()
-
 class ProductList(scrapy.Item):
     code = scrapy.Field()
-    sub_cat_name = scrapy.Field()
     sub_cat_code = scrapy.Field()
     img_small = scrapy.Field()
     wsp_inc_vat = scrapy.Field()
     rrp = scrapy.Field()
     por = scrapy.Field()
+    case = scrapy.Field()
 
 class ProductDetail(scrapy.Item):
     code = scrapy.Field()
