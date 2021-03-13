@@ -26,7 +26,8 @@ class ProductPipeline:
 			for rgx in [
 				r'[£%]',
 				r'POR: ',
-				r'RRP: '
+				r'RRP: ',
+				r'Case of '
 			]: value = re.sub(rgx, '', value)
 			return value
 
@@ -48,6 +49,7 @@ class ProductPipeline:
 			adapter['img_small'] = clean_image(adapter.get('img_small')[0])
 			if adapter.get('por'): adapter['por'] = clean_value(adapter.get('por')[0])
 			if adapter.get('rrp'): adapter['rrp'] = clean_value(adapter.get('rrp')[0])
+			if adapter.get('case'): adapter['case'] = clean_value(adapter.get('case')[0])
 			adapter['wsp_inc_vat'] = clean_value(adapter.get('wsp_inc_vat')[0])
 
 		if spider.name == "product_detail":

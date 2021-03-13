@@ -38,7 +38,7 @@ class ProductListSpider(scrapy.Spider):
 			l.add_css('wsp_inc_vat', '.price p::text')
 			l.add_css('rrp', 'span:contains("RRP: ")::text')
 			l.add_css('por', 'span:contains("POR: ")::text')
-      # l.add_css('case', 'span:contains("POR: ")::text')
+			l.add_css('case', 'span.case-quantity::text')
 
 			yield l.load_item()
 

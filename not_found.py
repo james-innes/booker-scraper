@@ -6,13 +6,13 @@ product_detail = sqlite3.connect('stores.db').execute("SELECT * FROM product_det
 not_found = []
 
 for product in product_detail:
-    code = product[0]
-    img = product[1]
+		code = product[0]
+		img = product[1]
 
-    r = requests.get(f"https://www.booker.co.uk/bbimages{img}")
+		r = requests.get(f"https://www.booker.co.uk/bbimages{img}")
 
-    if r.status_code == 404:
-      print(f"Not Found for code: {code}")
-      not_found.append(code)
+		if r.status_code == 404:
+			print(f"Not Found for code: {code}")
+			not_found.append(code)
 
 pd.DataFrame(not_found, columns=["code"]).to_csv('notfound.csv', index=False)
