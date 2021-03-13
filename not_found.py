@@ -18,6 +18,7 @@ for product in product_detail:
         print(f"Not Found for code: {code}")
         not_found.append([code])
 
+con = sqlite3.connect('stores.db')
 cur = con.cursor()
 cur.execute("DROP TABLE IF EXISTS not_found")
 cur.execute("CREATE TABLE not_found(code INTEGER)")
