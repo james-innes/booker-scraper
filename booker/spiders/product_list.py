@@ -33,7 +33,6 @@ class ProductListSpider(scrapy.Spider):
 			l = ItemLoader(item=ProductList(), selector=row, response=response)
 			code = row.css('.product-code::text').extract()[0].strip()
 			l.add_value('code', code)
-			l.add_value('sub_cat_name', sub_cat_name)
 			l.add_value('sub_cat_code', sub_cat_code)
 			l.add_css('img_small', '.product-image img::attr(src)')
 			l.add_css('wsp_inc_vat', '.price p::text')
