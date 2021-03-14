@@ -6,12 +6,20 @@ cats = sqlite3.connect('stores.db').execute("SELECT * FROM catalog_cats").fetcha
 new_cats = []
 
 replacements = [
-	[r'and', '&'],
-		[r'.?retail', ''],
-		[r'.?professional', ''],
-		[r'dog', 'Dog Food'],
-		[r'cat', 'Cat Food'],
-		[r'Dishwasher & Washing Up', 'Washing Up']
+	[r'Dogs', 'Dog Food'],
+	[r'Cats', 'Cat Food'],
+	[r'Dishwasher and Washing Up', 'Washing Up'],
+	[r'Car Care, DIY, Maintenance', 'Care Care'],
+	[r'Car Care, DIY, Maintenance', 'Care Care'],
+	[r'Cooked Meat and Sausages', 'Meat & Sausages'],
+	[r'Cookware and Kitchen Equipment', 'Kitchen Equipment'],
+	[r'On Premise', 'More Drinks'],
+	[r'Pastry, Savouries, Bread and Pasta', 'Bread, Pastry, & Pasta'],
+	[r'Salads, Sandwich Fillers, Dips', 'Salads, Sandwich, Dips'],
+	[r'\sand\s', ' & '],
+	[r'.?Catering', ''],
+	[r'.?Retail(er)?.?', ''],
+	[r'.?Professional', ''],
 ]
 
 for cat in cats:
