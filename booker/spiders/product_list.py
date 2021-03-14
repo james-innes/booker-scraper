@@ -26,9 +26,9 @@ class ProductListSpider(scrapy.Spider):
 		for row in sqlite3.connect('stores.db').execute("SELECT * FROM sitemap").fetchall():
 		# for row in [["CS13_201500", "Non-Food", "Crockery and Tableware"]]:
 			yield Request(
-				url=f'https://www.booker.co.uk/products/product-list?categoryName={row[0]}', cookies={'ASP.NET_SessionId': os.getenv('ASP_NET_SESSION'), '.ASPXAUTH': os.getenv('ASPXAUTH'), 'BookerMessage': 'WebsiteBulletinCheckedDate=21%2f01%2f2021+18%3a47%3a01'}, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_name=row[2], sub_cat_code=row[0]))
+				url=f'https://www.booker.co.uk/products/product-list?categoryName={row[0]}', cookies={'ASP.NET_SessionId': os.getenv('ASP_NET_SESSION'), '.ASPXAUTH': os.getenv('ASPXAUTH'), 'BookerMessage': 'WebsiteBulletinCheckedDate=21%2f01%2f2021+18%3a47%3a01'}, callback=self.parse_product_list, cb_kwargs=dict(sub_cat_code=row[0]))
 
-	def parse_product_list(self, response, sub_cat_name, sub_cat_code):
+	def parse_product_list(self, response, sub_cat_code):
 		for row in response.css('.rowUnGrouped .product-model'):
 			l = ItemLoader(item=ProductList(), selector=row, response=response)
 			code = row.css('.product-code::text').extract()[0].strip()
