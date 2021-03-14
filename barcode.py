@@ -25,11 +25,11 @@ with open('barcode.csv', 'w', newline='') as f:
 	for row in sqlite3.connect('stores.db').execute("SELECT * FROM sitemap").fetchall():
 	# for row in [["CS13_201630", "Pet Food", "Cats"], ["CS13_201640", "Pet Food", "Dogs"]]:
 	# for row in [["CS13_200020", "Beer and the rest", "Cider"]]:
-		d.get(f'https://www.booker.co.uk/products/product-list?categoryName={row[0]}')
+		d.get(f'https://www.booker.co.uk/products/product-list?categoryName={row[1]}')
 		page_count = len(d.find_elements_by_css_selector('.page-link[rel=next]'))
 
 		for page_index in (range(page_count) if page_count > 0 else range(1)):
-			d.get(f'https://www.booker.co.uk/products/product-list?categoryName={row[0]}&pageIndex={page_index}')
+			d.get(f'https://www.booker.co.uk/products/product-list?categoryName={row[1]}&pageIndex={page_index}')
 			d.get(f'https://www.booker.co.uk/products/print-product-list-ungroup?printType=ProductList')
 
 			for tr in d.find_elements_by_css_selector('.table-desktop tbody tr'):

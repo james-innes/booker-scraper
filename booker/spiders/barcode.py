@@ -25,7 +25,7 @@ class BarcodeSpider(scrapy.Spider):
 
 	# def parse(self, response):
 	# 	for row in sqlite3.connect('stores.db').execute("SELECT * FROM sitemap").fetchall():
-	# 		yield Request(url=f'https://www.booker.co.uk/products/print-product-list-ungroup?printType=ProductList&categoryName={row[0]}', cookies={'ASP.NET_SessionId': os.getenv('ASP_NET_SESSION'), '.ASPXAUTH': os.getenv('ASPXAUTH')}, callback=self.parse_barcode, cb_kwargs=dict(sub_cat_code=row[0]))
+	# 		yield Request(url=f'https://www.booker.co.uk/products/print-product-list-ungroup?printType=ProductList&categoryName={row[1]}', cookies={'ASP.NET_SessionId': os.getenv('ASP_NET_SESSION'), '.ASPXAUTH': os.getenv('ASPXAUTH')}, callback=self.parse_barcode, cb_kwargs=dict(sub_cat_code=row[1]))
 
 	# def parse_barcode(self, response, sub_cat_code):
 	# 	for tr in response.css('.table-desktop tr'):
@@ -37,7 +37,7 @@ class BarcodeSpider(scrapy.Spider):
 
 		# def parse(self, response):
 	#   for row in [["CS13_201630", "Pet Food", "Cats"], ["CS13_201640", "Pet Food", "Dogs"]]:
-	#     sub_cat_code = row[0]
+	#     sub_cat_code = row[1]
 	#     yield Request(url=f'https://www.booker.co.uk/products/product-list?categoryName={sub_cat_code}&pageIndex=0', callback=self.my_parse, cookies={'ASP.NET_SessionId': os.getenv('ASP_NET_SESSION'), '.ASPXAUTH': os.getenv('ASPXAUTH')}, cb_kwargs=dict(sub_cat_code=sub_cat_code), priority=0, dont_filter=True)
 
 	# def my_parse(self, response, sub_cat_code):
