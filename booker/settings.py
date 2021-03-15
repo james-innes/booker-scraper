@@ -3,15 +3,15 @@ SPIDER_MODULES = ['booker.spiders']
 NEWSPIDER_MODULE = 'booker.spiders'
 ROBOTSTXT_OBEY = False
 FEED_EXPORTERS = {
-		'csv': 'booker.csvexporter.QuoteAllCsvItemExporter',
+    'csv': 'booker.csvexporter.QuoteAllCsvItemExporter',
 }
 TELNETCONSOLE_ENABLED = False
 DOWNLOADER_MIDDLEWARES = {
-		'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-		'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
 }
 ITEM_PIPELINES = {
-		'booker.pipelines.ProductPipeline': 300,
+    'booker.pipelines.ProductPipeline': 300,
 }
 AUTOTHROTTLE_ENABLED = True
 AUTOTHROTTLE_START_DELAY = False
