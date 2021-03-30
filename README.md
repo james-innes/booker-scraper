@@ -14,7 +14,7 @@ ASP_NET_SESSION=
 ASPXAUTH=
 ```
 
-Run `login.py` every time Spiders return non 200 responses and copy printed values into `.env`.
+Run `login.py` every time spiders return non 200 response and copy printed values into `.env`.
 
 ### 2. Sitemap
 
@@ -22,7 +22,7 @@ Sitemap manually copied from side nav pane. Could be automated.
 
 ### 3. Product List
 
-From list view scrap all product `code` and associate `sub_cat_code` as well as price information.  
+From list view scrap all product `code`'s and other info available.
 `scrapy crawl product_list`
 
 Load outputted CSV file into Database for the following step!
