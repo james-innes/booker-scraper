@@ -15,12 +15,11 @@ class ProductPipeline:
         def clean_name(name):
             for rgx in [
                 r'/\?ÕÌ_|_Œ‚|[ŠŽÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØÙÚÛÜÝÞßðÿ_]+',
-                    r'.PMP\s?£?(\d+.?\d+)',  # PMP £3.29
-                    r'(\d+)\s?x\s?',  # 36 x
+                    r'.PMP\s?£?(\d+.?\d+)', # PMP £3.29
+                    # r'(\d+)\s?x\s?', # 36 x
                     r'/[^\x00-\x7F]|\?',
-                    r'retail\s/gi',  # Retail
-                    # "Drink 100g (800g)" -> "Drink 100g"
-                    r'.\([0-9]+[a-z]{0,2}\)'
+                    r'retail\s/gi', # Retail
+                    # r'.\([0-9]+[a-z]{0,2}\)' # "Drink 100g (800g)" -> "Drink 100g"
             ]:
                 name = re.sub(rgx, '', name.lstrip())
             return name
