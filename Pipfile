@@ -8,8 +8,10 @@ scrapy = "*"
 python-dotenv = "*"
 scrapy-fake-useragent = "*"
 bs4 = "*"
+selenium = "*"
 
 [dev-packages]
+autopep8 = "*"
 
 [requires]
 python_version = "3.9"
