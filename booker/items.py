@@ -4,7 +4,7 @@
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 import scrapy
-from scrapy.loader.processors import Join, MapCompose, TakeFirst
+from scrapy.loader.processors import Join, MapCompose
 from w3lib.html import replace_escape_chars
 
 
