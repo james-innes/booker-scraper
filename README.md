@@ -1,5 +1,7 @@
 # Booker Scraper
 
+![Scraping in action](./scrapping-in-action.png)
+
 Run `pipenv install` to install dependencies.  
 Run `pipenv shell` to enter virtual environment.
 
